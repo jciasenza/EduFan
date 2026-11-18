@@ -1,0 +1,156 @@
+{
+  "header": {
+    "brand": "EduFan",
+    "slogan": "¡Aprender nunca fue tan divertido!",
+    "home": "Inicio",
+    "games": "Juegos",
+    "language": "Idioma",
+    "theme": "Cambiar tema",
+    "openMenu": "Abrir menú de categorías",
+    "closeMenu": "Cerrar menú",
+    "subscribe": "¡Suscríbete!",
+    "login": "Iniciar",
+    "categories": {
+      "songs": "Canciones",
+      "stories": "Cuentos",
+      "riddles": "Adivinanzas",
+      "tongueTwisters": "Trabalenguas",
+      "play": "Recreo",
+      "drawings": "Dibujos",
+      "resources": "Rompecabezas",
+      "english": "Inglés",
+      "science": "Ciencia",
+      "math": "Matemáticas",
+      "words": "Palabras"
+    }
+  },
+  "menu": {
+    "counter": "Contador de Palabras",
+    "puzzle": "Rompecabezas",
+    "math": "Desafío matemático",
+    "comingSoon": "Próximamente"
+  },
+  "counter": {
+    "title": "Contador de Palabras",
+    "description": "Escribe un párrafo y descubre cuántas palabras y letras contiene.",
+    "inputLabel": "Tu texto",
+    "placeholder": "Escribe aquí tu historia...",
+    "countButton": "Contar",
+    "clearButton": "Borrar",
+    "words": "palabras",
+    "letters": "letras",
+    "spanish": "español",
+    "english": "inglés",
+    "checking": "Buscando en el diccionario...",
+    "notFound": "No encontradas",
+    "dictionaryError": "No se pudo consultar el diccionario. Revisa tu conexión e inténtalo otra vez."
+  },
+  "scrambledWords": {
+    "title": "Palabras revueltas",
+    "description": "Ordena las letras para descubrir la palabra escondida.",
+    "round": "Palabra",
+    "of": "de",
+    "score": "Puntos",
+    "progress": "Progreso del juego",
+    "scrambledLetters": "Letras desordenadas",
+    "moveInstruction": "Toca o arrastra las letras para ordenarlas.",
+    "availableLetter": "Letra disponible",
+    "answerArea": "Tu palabra ordenada",
+    "removeLetter": "Quitar letra",
+    "emptySlot": "Espacio vacío",
+    "clueHidden": "¿Necesitas ayuda? ¡Pide una pista!",
+    "answerLabel": "Tu respuesta",
+    "check": "Comprobar",
+    "hint": "Pista",
+    "next": "Siguiente palabra",
+    "correct": "¡Muy bien! ¡Encontraste la palabra!",
+    "tryAgain": "¡Casi! Prueba otra vez.",
+    "finished": "¡Terminaste!",
+    "finalScore": "Tu puntaje",
+    "playAgain": "Jugar otra vez"
+  },
+  "home": {
+    "eyebrow": "¡Tu aventura empieza aquí!",
+    "title": "Aprender es una gran aventura",
+    "subtitle": "Explora juegos divertidos y descubre cuánto puedes aprender.",
+    "start": "Empezar a jugar",
+    "cardsTitle": "Explorá por categoría",
+    "wordCounterTitle": "Contador de palabras y letras",
+    "wordCounterDescription": "Escribe un texto y cuenta sus palabras y letras.",
+    "categoryHeroSubtitle": "Juegos divertidos para niños",
+    "categoryGamesTitle": "Juegos de esta categoría",
+    "gameComingSoon": "¡Próximamente!",
+    "games": {
+      "songs": {
+        "title": "Adivina la canción",
+        "description": "Escucha, canta y descubre canciones divertidas."
+      },
+      "stories": {
+        "title": "Cuentos mágicos",
+        "description": "Elige una historia y descubre nuevos mundos."
+      },
+      "riddles": {
+        "title": "Adivina, adivinador",
+        "description": "Resuelve pistas y encuentra la respuesta."
+      },
+      "tongueTwisters": {
+        "title": "Reto de trabalenguas",
+        "description": "¡Di cada frase sin equivocarte!"
+      },
+      "play": {
+        "title": "Memotest de animales",
+        "description": "Encuentra las parejas de animales."
+      },
+      "drawings": {
+        "title": "Dibuja y colorea",
+        "description": "Deja volar tu imaginación con colores."
+      },
+      "puzzles": {
+        "title": "Rompecabezas de animales",
+        "description": "Arma la imagen pieza por pieza."
+      },
+      "english": {
+        "title": "Mis primeras palabras en inglés",
+        "description": "Aprende palabras nuevas jugando."
+      },
+      "science": {
+        "title": "Pequeños exploradores",
+        "description": "Descubre curiosidades del mundo que te rodea."
+      },
+      "math": {
+        "title": "Desafío de números",
+        "description": "Resuelve retos fáciles con números."
+      },
+      "words": {
+        "title": "Contador de palabras y letras",
+        "description": "Escribe un texto y cuenta sus palabras y letras."
+      },
+      "scrambledWords": {
+        "title": "Palabras revueltas",
+        "description": "Ordena las letras y descubre qué palabra se esconde."
+      }
+    },
+    "categoryTitle": "¡Vamos a jugar!",
+    "categoryComingSoon": "Estamos preparando actividades súper divertidas para esta categoría."
+  },
+  "auth": {
+    "loginTitle": "¡Qué bueno verte!",
+    "loginDescription": "Inicia sesión para continuar aprendiendo y jugando.",
+    "registerTitle": "¡Únete a la diversión!",
+    "registerDescription": "Crea tu cuenta para empezar esta aventura.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Repetir contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "loginButton": "Iniciar sesión",
+    "registerButton": "Crear cuenta",
+    "noAccount": "¿Todavía no tienes cuenta?",
+    "registerLink": "Regístrate",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Inicia sesión",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "notConnected": "El formulario está listo, pero la autenticación todavía no está conectada. No se creó ni guardó ninguna cuenta."
+  }
+}

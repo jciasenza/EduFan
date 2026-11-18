@@ -1,0 +1,156 @@
+{
+  "header": {
+    "brand": "EduFan",
+    "slogan": "Learning has never been this fun!",
+    "home": "Home",
+    "games": "Games",
+    "language": "Language",
+    "theme": "Change theme",
+    "openMenu": "Open category menu",
+    "closeMenu": "Close menu",
+    "subscribe": "Subscribe!",
+    "login": "Sign in",
+    "categories": {
+      "songs": "Songs",
+      "stories": "Stories",
+      "riddles": "Riddles",
+      "tongueTwisters": "Tongue twisters",
+      "play": "Playtime",
+      "drawings": "Drawings",
+      "resources": "Puzzles",
+      "english": "English",
+      "science": "Science",
+      "math": "Math",
+      "words": "Words"
+    }
+  },
+  "menu": {
+    "counter": "Word Counter",
+    "puzzle": "Puzzle",
+    "math": "Math Challenge",
+    "comingSoon": "Coming soon"
+  },
+  "counter": {
+    "title": "Word Counter",
+    "description": "Write a paragraph and discover how many words and letters it contains.",
+    "inputLabel": "Your text",
+    "placeholder": "Write your story here...",
+    "countButton": "Count",
+    "clearButton": "Clear",
+    "words": "words",
+    "letters": "letters",
+    "spanish": "Spanish",
+    "english": "English",
+    "checking": "Checking the dictionary...",
+    "notFound": "Not found",
+    "dictionaryError": "The dictionary could not be reached. Check your connection and try again."
+  },
+  "scrambledWords": {
+    "title": "Scrambled words",
+    "description": "Put the letters in order to discover the hidden word.",
+    "round": "Word",
+    "of": "of",
+    "score": "Score",
+    "progress": "Game progress",
+    "scrambledLetters": "Scrambled letters",
+    "moveInstruction": "Tap or drag the letters to put them in order.",
+    "availableLetter": "Available letter",
+    "answerArea": "Your arranged word",
+    "removeLetter": "Remove letter",
+    "emptySlot": "Empty slot",
+    "clueHidden": "Need help? Ask for a hint!",
+    "answerLabel": "Your answer",
+    "check": "Check",
+    "hint": "Hint",
+    "next": "Next word",
+    "correct": "Great job! You found the word!",
+    "tryAgain": "Almost! Try again.",
+    "finished": "You did it!",
+    "finalScore": "Your score",
+    "playAgain": "Play again"
+  },
+  "home": {
+    "eyebrow": "Your adventure starts here!",
+    "title": "Learning is a great adventure",
+    "subtitle": "Explore fun games and discover how much you can learn.",
+    "start": "Start playing",
+    "cardsTitle": "Explore by category",
+    "wordCounterTitle": "Word and letter counter",
+    "wordCounterDescription": "Write some text and count its words and letters.",
+    "categoryHeroSubtitle": "Fun games for kids",
+    "categoryGamesTitle": "Games in this category",
+    "gameComingSoon": "Coming soon!",
+    "games": {
+      "songs": {
+        "title": "Guess the song",
+        "description": "Listen, sing, and discover fun songs."
+      },
+      "stories": {
+        "title": "Magical stories",
+        "description": "Choose a story and explore new worlds."
+      },
+      "riddles": {
+        "title": "Riddle me this",
+        "description": "Solve the clues and find the answer."
+      },
+      "tongueTwisters": {
+        "title": "Tongue twister challenge",
+        "description": "Say each phrase without making a mistake!"
+      },
+      "play": {
+        "title": "Animal memory match",
+        "description": "Find matching pairs of animals."
+      },
+      "drawings": {
+        "title": "Draw and color",
+        "description": "Let your imagination run wild with color."
+      },
+      "puzzles": {
+        "title": "Animal jigsaw puzzle",
+        "description": "Put the picture together piece by piece."
+      },
+      "english": {
+        "title": "My first English words",
+        "description": "Learn new words while you play."
+      },
+      "science": {
+        "title": "Little explorers",
+        "description": "Discover fun facts about the world around you."
+      },
+      "math": {
+        "title": "Number challenge",
+        "description": "Solve easy challenges with numbers."
+      },
+      "words": {
+        "title": "Word and letter counter",
+        "description": "Write some text and count its words and letters."
+      },
+      "scrambledWords": {
+        "title": "Scrambled words",
+        "description": "Put the letters in order and reveal the hidden word."
+      }
+    },
+    "categoryTitle": "Let's play!",
+    "categoryComingSoon": "We are preparing super fun activities for this category."
+  },
+  "auth": {
+    "loginTitle": "Welcome back!",
+    "loginDescription": "Sign in to keep learning and playing.",
+    "registerTitle": "Join the fun!",
+    "registerDescription": "Create an account to start this adventure.",
+    "name": "Name",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "loginButton": "Sign in",
+    "registerButton": "Create account",
+    "noAccount": "Don't have an account yet?",
+    "registerLink": "Sign up",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "passwordMismatch": "Passwords do not match.",
+    "notConnected": "The form is ready, but authentication is not connected yet. No account was created or saved."
+  }
+}

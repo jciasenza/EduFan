@@ -1,0 +1,51 @@
+.account-page--login {
+  min-height: 500px;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+}
+
+.account-card.MuiCard-root {
+  width: min(460px, 100%);
+  padding: clamp(24px, 5vw, 40px);
+  border: 2px solid var(--border);
+  border-radius: 26px;
+  display: grid;
+  gap: 18px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 14px 32px rgba(49, 74, 113, 0.14);
+}
+
+.account-card h1 {
+  margin: 0;
+  color: #6254e8;
+  text-align: center;
+}
+
+.account-description {
+  margin-top: -10px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.account-form {
+  display: grid;
+  gap: 16px;
+}
+
+.account-card .MuiTextField-root .MuiInputLabel-root,
+.account-card .MuiTextField-root .MuiInputBase-root {
+  font-family: var(--font-body);
+}
+
+.account-switch {
+  color: var(--muted);
+  text-align: center;
+}
+
+.account-switch a {
+  color: #5145c7;
+  font-weight: 900;
+}

@@ -1,41 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap");
 
-.titulo {
-  text-align: center;
-  color: blue;
+* {
+  box-sizing: border-box;
 }
-p {
-  text-align: center;
+
+:root {
+  --page-bg: #f7fbff;
+  --surface: #ffffff;
+  --text: #26316b;
+  --muted: #66708f;
+  --border: #dfe8ff;
+  --font-body: "Nunito", "Segoe UI", sans-serif;
+  --font-heading: "AmazingKids", "Nunito", "Segoe UI", sans-serif;
 }
-.boton {
-  margin-top: 10px;
+
+:root[data-theme="dark"] {
+  --page-bg: #15192c;
+  --surface: #20243a;
+  --text: #f5f7ff;
+  --muted: #c3cae5;
+  --border: #414763;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+.app-shell {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 20px;
-  color: rgb(226, 43, 43);
+  flex-direction: column;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 205, 86, 0.28) 0 70px,
+      transparent 71px
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      rgba(111, 207, 151, 0.22) 0 90px,
+      transparent 91px
+    ),
+    var(--page-bg);
 }
-button{
-  align-items: center;
-  text-align: center;
-  font-size: 20px;
-  color: rgb(226, 43, 43);
-  margin-left: 10px;
+
+.route-loading {
+  min-height: 300px;
+  flex: 1;
+  display: grid;
+  place-items: center;
 }
-.area {
-  display: flex;
-  padding: 10px;
-  color: rgb(41, 10, 10);
-  background-color: rgb(196, 196, 196);
-  justify-content: center;
-  align-items: center;
-}
-.resultado{
-  margin-top:  20px;
-  font-size: 20px;
-  display: flex;
-  font-weight: bold;
-  text-align: center;
-  color: blue;
-  justify-content: center;
+
+.empty-game,
+.account-page {
+  width: 100%;
 }

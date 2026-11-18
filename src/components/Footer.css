@@ -1,0 +1,89 @@
+.app-footer {
+  padding: 18px 20px;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  background: var(--surface);
+  text-align: center;
+}
+
+.app-footer .footer-content {
+  min-height: 132px;
+  align-items: stretch;
+  justify-content: space-between;
+  text-align: right;
+}
+
+.app-footer .footer-brand {
+  gap: 12px;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+
+.app-footer .footer-brand img {
+  display: block;
+  width: 5rem;
+  height: auto;
+}
+
+.app-footer .footer-slogan.MuiTypography-root {
+  white-space: nowrap;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  text-align: left;
+}
+
+.app-footer .footer-details {
+  min-height: 132px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.app-footer .footer-social-links {
+  justify-content: flex-end;
+}
+
+.app-footer .footer-social-link {
+  color: #6254e8;
+}
+
+.app-footer .footer-copy {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+@media (max-width: 560px) {
+  .app-footer .footer-content {
+    min-height: 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .app-footer .footer-brand {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .app-footer .footer-slogan.MuiTypography-root {
+    max-width: 130px;
+    white-space: normal;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .app-footer .footer-details {
+    min-height: 76px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-footer .footer-social-links {
+    justify-content: center;
+  }
+}

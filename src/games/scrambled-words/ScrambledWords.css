@@ -1,0 +1,268 @@
+.scrambled-game {
+  width: min(940px, calc(100% - 32px));
+  flex: 1;
+  margin: 0 auto;
+  padding: 38px 0 48px;
+}
+
+.scrambled-card.MuiCard-root {
+  padding: clamp(24px, 5vw, 42px);
+  border: 3px solid #dfe8ff;
+  border-radius: 30px;
+  color: #26316b;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 213, 92, 0.19) 0 8px, transparent 9px),
+    radial-gradient(circle at 93% 20%, rgba(91, 201, 197, 0.2) 0 14px, transparent 15px),
+    var(--surface);
+  box-shadow: 0 16px 35px rgba(73, 95, 160, 0.14);
+  text-align: center;
+}
+
+.scrambled-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #7d4b00;
+  background: #ffd05c;
+  box-shadow: 0 5px 0 #eeb93e;
+}
+
+.scrambled-badge svg {
+  font-size: 34px;
+}
+
+.scrambled-title.MuiTypography-root {
+  margin: 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+}
+
+.scrambled-description.MuiTypography-root {
+  margin: 8px auto 24px;
+  color: var(--muted);
+}
+
+.scrambled-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: #59648a;
+  font-weight: 900;
+}
+
+.scrambled-round.MuiTypography-root,
+.scrambled-score.MuiTypography-root {
+  font-weight: 900;
+}
+
+.scrambled-score.MuiTypography-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #bd8413;
+}
+
+.scrambled-progress.MuiLinearProgress-root {
+  height: 10px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  background: #e6ecff;
+}
+
+.scrambled-progress .MuiLinearProgress-bar {
+  border-radius: inherit;
+  background: linear-gradient(90deg, #5bc9c5, #83d848);
+}
+
+.scrambled-prompt {
+  min-height: 190px;
+  padding: 24px;
+  border: 2px dashed #89d9d4;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #effdfb, #fff8dc);
+}
+
+.prompt-emoji {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.scrambled-letters {
+  min-height: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.scrambled-letter {
+  width: clamp(42px, 9vw, 58px);
+  height: clamp(48px, 10vw, 64px);
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #6254e8;
+  box-shadow: 0 5px 0 #4b41bd;
+  cursor: grab;
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 5vw, 34px);
+  text-transform: uppercase;
+}
+
+.scrambled-letter:active {
+  cursor: grabbing;
+}
+
+.scrambled-letter:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.scrambled-instruction.MuiTypography-root {
+  color: #68728f;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.scrambled-answer-section {
+  margin: 18px auto 0;
+}
+
+.scrambled-answer-label.MuiTypography-root {
+  margin-bottom: 10px;
+  color: #59648a;
+  font-weight: 900;
+}
+
+.scrambled-answer {
+  min-height: 74px;
+  padding: 8px;
+  border: 2px dashed #b6c1df;
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(245, 248, 255, 0.8);
+}
+
+.scrambled-answer-slot {
+  width: clamp(42px, 9vw, 58px);
+  height: clamp(48px, 10vw, 64px);
+  padding: 0;
+  border: 2px dashed #aeb9d5;
+  border-radius: 14px;
+  color: #fff;
+  background: #fff;
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 5vw, 34px);
+  text-transform: uppercase;
+}
+
+.scrambled-answer-slot.is-filled {
+  border: 2px solid #fff;
+  background: #43b9ae;
+  box-shadow: 0 5px 0 #329b93;
+  cursor: grab;
+}
+
+.scrambled-answer-slot.is-filled:active {
+  cursor: grabbing;
+}
+
+.scrambled-answer-slot:disabled {
+  cursor: default;
+}
+
+.scrambled-clue.MuiTypography-root {
+  min-height: 28px;
+  margin: 16px 0;
+  color: #68728f;
+  font-weight: 800;
+}
+
+.scrambled-form {
+  width: min(520px, 100%);
+  margin: 0 auto;
+}
+
+.scrambled-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.scrambled-feedback.MuiAlert-root {
+  width: min(520px, 100%);
+  margin: 18px auto 0;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.scrambled-finish {
+  padding: 24px 12px 8px;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.finish-emoji {
+  font-size: 66px;
+}
+
+.scrambled-finish h2 {
+  margin: 0;
+  color: #43b9ae;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.finish-score.MuiTypography-root {
+  margin-bottom: 8px;
+  color: #59648a;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+@media (max-width: 560px) {
+  .scrambled-game {
+    padding: 26px 0 36px;
+  }
+
+  .scrambled-card.MuiCard-root {
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .scrambled-status {
+    font-size: 14px;
+  }
+
+  .scrambled-prompt {
+    min-height: 165px;
+    padding: 18px 10px;
+  }
+
+  .scrambled-actions {
+    flex-direction: column;
+  }
+
+  .scrambled-actions .MuiButton-root {
+    width: 100%;
+  }
+}

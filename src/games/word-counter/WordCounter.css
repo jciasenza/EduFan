@@ -1,0 +1,121 @@
+.game-container {
+  display: grid;
+  flex: 1;
+  place-items: start center;
+  width: min(980px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 38px 0 48px;
+}
+
+.counter-card {
+  position: relative;
+  width: min(680px, 100%);
+  padding: 34px;
+  border: 3px solid var(--border);
+  border-radius: 28px;
+  background: var(--surface);
+  box-shadow: 0 16px 35px rgba(73, 95, 160, 0.12);
+  text-align: center;
+}
+
+.game-badge {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border: 5px solid var(--surface);
+  border-radius: 50%;
+  background: #ffc95c;
+  color: #654b00;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.counter-card h2 {
+  margin: 0;
+  color: #6254e8;
+  font-size: clamp(26px, 6vw, 38px);
+}
+
+.game-description {
+  margin: 8px 0 24px;
+  color: var(--muted);
+}
+
+.game-actions {
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.result-box {
+  margin: 20px auto 0;
+  padding: 14px 18px;
+  border-radius: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 24px;
+  color: #4f5b00;
+  background: #fff6bd;
+  font-size: 16px;
+}
+
+.result-metric {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-metric > svg {
+  color: #d39a10;
+}
+
+.result-number {
+  color: #34420a;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.language-result .result-number {
+  font-size: 22px;
+}
+
+.dictionary-results {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.dictionary-results .MuiTypography-root {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.unknown-words {
+  color: #91621b;
+}
+
+.dictionary-error {
+  margin-top: 16px !important;
+  color: #bd3344;
+  text-align: left;
+}
+
+@media (max-width: 560px) {
+  .game-container {
+    padding: 28px 0 36px;
+  }
+
+  .counter-card {
+    padding: 28px 16px 20px;
+  }
+
+  .result-box {
+    gap: 10px 16px;
+  }
+}

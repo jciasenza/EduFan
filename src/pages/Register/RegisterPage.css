@@ -1,0 +1,17 @@
+.account-page--register {
+  min-height: 600px;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+}
+
+.account-page--register .account-card h1 {
+  color: #bb59cb;
+}
+
+@media (max-width: 480px) {
+  .account-page--register {
+    padding: 24px 12px;
+  }
+}

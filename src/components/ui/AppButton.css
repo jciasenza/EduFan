@@ -1,0 +1,68 @@
+.app-button.MuiButton-root {
+  min-height: 48px;
+  padding: 10px 22px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    transform 140ms ease;
+}
+
+.app-button.MuiButton-root:hover {
+  transform: translateY(-2px);
+}
+
+.app-button.MuiButton-root:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.app-button--primary.MuiButton-root,
+.app-button--primary.MuiButton-root:hover {
+  color: #fff;
+  background-color: #ff6f61;
+  box-shadow: 0 5px 0 #db4d54;
+}
+
+.app-button--primary.MuiButton-root:hover {
+  background-color: #ff806d;
+  box-shadow: 0 7px 0 #db4d54;
+}
+
+.app-button--secondary.MuiButton-root,
+.app-button--secondary.MuiButton-root:hover {
+  border-color: #5bc9c5;
+  color: #287c7a;
+  background-color: #fff;
+  box-shadow: 0 4px 0 #b5e7e4;
+}
+
+.app-button--secondary.MuiButton-root:hover {
+  background-color: #effdfb;
+  box-shadow: 0 6px 0 #b5e7e4;
+}
+
+.app-button.MuiButton-root.Mui-disabled {
+  transform: none;
+  color: #fff;
+  background-color: #adb5c8;
+  box-shadow: 0 4px 0 #929bad;
+}
+
+.app-button--secondary.MuiButton-root.Mui-disabled {
+  border-color: #c9d0dc;
+  color: #929bad;
+  background-color: #f4f6f9;
+  box-shadow: none;
+}
+
+.app-button .MuiButton-startIcon {
+  margin-left: 0;
+}
