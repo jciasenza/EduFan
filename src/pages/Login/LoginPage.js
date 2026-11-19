@@ -9,20 +9,40 @@ import {
   Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
+import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import "./LoginPage.css";
 
 export default function LoginPage() {
   const { translations } = useLanguage();
+  const { signIn, isConfigured } = useAuth();
   const t = translations.auth || {};
-  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setSubmitted(true);
+    setError("");
+    if (!isConfigured) {
+      setError(t.notConnected);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await signIn(email, password);
+      navigate("/");
+    } catch (signInError) {
+      setError(signInError.message || t.authError);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +58,8 @@ export default function LoginPage() {
             name="email"
             label={t.email}
             autoComplete="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
             fullWidth
@@ -46,6 +68,8 @@ export default function LoginPage() {
             name="password"
             label={t.password}
             autoComplete="current-password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -61,9 +85,11 @@ export default function LoginPage() {
               ),
             }}
           />
-          <AppButton type="submit" fullWidth>{t.loginButton}</AppButton>
+          <AppButton type="submit" fullWidth disabled={loading}>
+            {loading ? t.loading : t.loginButton}
+          </AppButton>
         </Box>
-        {submitted && <Alert severity="info">{t.notConnected}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
         <Typography className="account-switch">
           {t.noAccount} <Link to="/registrarse">{t.registerLink}</Link>
         </Typography>

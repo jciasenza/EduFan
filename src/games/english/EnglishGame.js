@@ -1,6 +1,6 @@
 import React from "react";
-import "./EnglishGame.css";
+import VocabularyGame from "./VocabularyGame";
 
 export default function EnglishGame() {
-  return <main className="empty-game empty-game--english" aria-label="English game" />;
+  return <VocabularyGame targetLanguage="en" />;
 }

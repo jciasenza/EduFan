@@ -8,6 +8,7 @@ import {
   Extension,
   MusicNote,
   Science,
+  HistoryEdu,
   Star,
   SportsEsports,
   Translate,
@@ -21,15 +22,85 @@ import AppButton from "../../components/ui/AppButton";
 import "./Home.css";
 
 const gameCards = [
-  { id: "songs", key: "songs", game: "songs", icon: MusicNote, color: "orange" },
-  { id: "stories", key: "stories", game: "stories", icon: AutoStories, color: "pink" },
-  { id: "riddles", key: "riddles", game: "riddles", icon: QuestionAnswer, color: "purple" },
-  { id: "tongue-twisters", key: "tongueTwisters", game: "tongueTwisters", icon: TextFields, color: "blue" },
-  { id: "play", key: "play", game: "play", icon: SportsEsports, color: "teal" },
-  { id: "drawings", key: "drawings", game: "drawings", icon: Palette, color: "coral" },
-  { id: "resources", key: "resources", game: "puzzles", icon: Extension, color: "purple" },
-  { id: "english", key: "english", game: "english", icon: Translate, color: "coral" },
-  { id: "science", key: "science", game: "science", icon: Science, color: "yellow" },
+  {
+    id: "songs",
+    key: "songs",
+    game: "songs",
+    icon: MusicNote,
+    color: "orange",
+    gameRoute: "/juegos/canciones",
+  },
+  {
+    id: "stories",
+    key: "stories",
+    game: "stories",
+    icon: AutoStories,
+    color: "pink",
+    gameRoute: "/juegos/cuentos",
+  },
+  {
+    id: "riddles",
+    key: "riddles",
+    game: "riddles",
+    icon: QuestionAnswer,
+    color: "purple",
+    gameRoute: "/juegos/adivinanzas",
+  },
+  {
+    id: "tongue-twisters",
+    key: "tongueTwisters",
+    game: "tongueTwisters",
+    icon: TextFields,
+    color: "blue",
+    gameRoute: "/juegos/trabalenguas",
+  },
+  {
+    id: "memory",
+    key: "memory",
+    game: "memory",
+    icon: SportsEsports,
+    color: "teal",
+    gameRoute: "/juegos/memoria",
+  },
+  {
+    id: "shapes-colors",
+    key: "shapesColors",
+    game: "shapesColors",
+    icon: Palette,
+    color: "coral",
+    gameRoute: "/juegos/figuras-colores",
+  },
+  {
+    id: "resources",
+    key: "resources",
+    game: "puzzles",
+    icon: Extension,
+    color: "purple",
+    gameRoute: "/juegos/rompecabezas",
+  },
+  {
+    id: "english",
+    key: "english",
+    game: "english",
+    icon: Translate,
+    color: "coral",
+  },
+  {
+    id: "science",
+    key: "science",
+    game: "science",
+    icon: Science,
+    color: "yellow",
+    gameRoute: "/juegos/ciencia",
+  },
+  {
+    id: "world-history",
+    key: "worldHistory",
+    game: "worldHistory",
+    icon: HistoryEdu,
+    color: "purple",
+    gameRoute: "/juegos/historia-mundial",
+  },
   { id: "math", key: "math", game: "math", icon: Calculate, color: "green" },
   { id: "words", key: "words", game: "words", icon: Abc, color: "blue", gameRoute: "/juegos/contador-palabras" },
 ];
@@ -57,6 +128,32 @@ export default function Home() {
           Icon: TextFields,
         },
       ]
+      : selectedCategoryData.id === "math"
+        ? [
+          {
+            key: "addition",
+            route: "/juegos/matematicas",
+            Icon: Calculate,
+          },
+          {
+            key: "numberSeries",
+            route: "/juegos/series-numericas",
+            Icon: AutoStories,
+          },
+        ]
+      : selectedCategoryData.id === "english"
+        ? [
+          {
+            key: "english",
+            route: "/juegos/ingles",
+            Icon: Translate,
+          },
+          {
+            key: "spanish",
+            route: "/juegos/espanol",
+            Icon: Translate,
+          },
+        ]
       : [{
         key: selectedCategoryData.game,
         route: selectedCategoryData.gameRoute,
@@ -80,7 +177,7 @@ export default function Home() {
               <Typography component="h1" id="selected-category-title">
                 {categoryText[selectedCategoryData.key]}
               </Typography>
-              <span>{t.categoryHeroSubtitle}</span>
+              <span>{t.categoryDescriptions?.[selectedCategoryData.key] || t.categoryHeroSubtitle}</span>
             </div>
           </section>
 
@@ -170,6 +267,9 @@ export default function Home() {
                     </Box>
                     <Box className="game-card-caption">
                       <Typography component="h3">{categoryText[key]}</Typography>
+                      <Typography component="p">
+                        {t.categoryDescriptions?.[key] || ""}
+                      </Typography>
                     </Box>
                   </CardActionArea>
                 </Card>

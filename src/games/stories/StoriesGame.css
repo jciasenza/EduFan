@@ -1,4 +1,217 @@
-.empty-game--stories {
-  min-height: 320px;
+.stories-game {
+  width: min(940px, calc(100% - 32px));
   flex: 1;
+  margin: 0 auto;
+  padding: 38px 0 48px;
+}
+
+.stories-card.MuiCard-root {
+  padding: clamp(24px, 5vw, 42px);
+  border: 3px solid #dfe8ff;
+  border-radius: 30px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 213, 92, 0.19) 0 8px, transparent 9px),
+    radial-gradient(circle at 93% 20%, rgba(91, 201, 197, 0.2) 0 14px, transparent 15px),
+    var(--surface);
+  box-shadow: 0 16px 35px rgba(73, 95, 160, 0.14);
+  text-align: center;
+}
+
+.stories-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #e85c9f;
+  box-shadow: 0 5px 0 #c64483;
+}
+
+.stories-badge svg {
+  font-size: 34px;
+}
+
+.stories-title.MuiTypography-root {
+  margin: 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+}
+
+.stories-description.MuiTypography-root {
+  margin: 8px auto 24px;
+  color: var(--muted);
+}
+
+.stories-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.stories-score.MuiTypography-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #bd8413;
+  font-weight: 900;
+}
+
+.stories-progress.MuiLinearProgress-root {
+  height: 10px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  background: #e6ecff;
+}
+
+.stories-progress .MuiLinearProgress-bar {
+  border-radius: inherit;
+  background: linear-gradient(90deg, #e85c9f, #a56af0);
+}
+
+.story-page {
+  min-height: 280px;
+  padding: clamp(22px, 4vw, 36px);
+  border: 2px dashed #e6a3c4;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #fff1f8, #fff8dc);
+  text-align: left;
+}
+
+.story-illustration {
+  font-size: 52px;
+  line-height: 1;
+}
+
+.story-heading.MuiTypography-root {
+  color: #d34b92;
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 5vw, 38px);
+  text-align: center;
+}
+
+.story-text.MuiTypography-root {
+  max-width: 700px;
+  color: #51466d;
+  font-size: clamp(17px, 2.4vw, 20px);
+  line-height: 1.7;
+}
+
+.stories-question.MuiTypography-root {
+  margin: 22px 0 12px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.stories-answers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.story-answer {
+  min-height: 58px;
+  padding: 10px 16px;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  color: #fff;
+  background: #6254e8;
+  box-shadow: 0 5px 0 #4b41bd;
+  cursor: pointer;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 900;
+  transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.story-answer:hover {
+  transform: translateY(-2px);
+  background: #7669f0;
+}
+
+.story-answer.is-correct,
+.story-answer.is-correct:hover {
+  background: #43b9ae;
+  box-shadow: 0 5px 0 #329b93;
+}
+
+.story-answer.is-incorrect,
+.story-answer.is-incorrect:hover {
+  background: #ff765e;
+  box-shadow: 0 5px 0 #db4d54;
+}
+
+.story-answer:disabled {
+  cursor: default;
+}
+
+.story-answer:disabled:hover {
+  transform: none;
+}
+
+.stories-feedback.MuiAlert-root {
+  width: min(520px, 100%);
+  margin: 18px auto;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.stories-finish {
+  padding: 24px 12px 8px;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.stories-finish-emoji {
+  font-size: 66px;
+}
+
+.stories-finish h2 {
+  margin: 0;
+  color: #e85c9f;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.stories-final-score.MuiTypography-root {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+@media (max-width: 560px) {
+  .stories-game {
+    padding: 26px 0 36px;
+  }
+
+  .stories-card.MuiCard-root {
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .stories-status {
+    font-size: 14px;
+  }
+
+  .story-page {
+    min-height: 250px;
+    padding: 22px 16px;
+  }
+
+  .stories-answers {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

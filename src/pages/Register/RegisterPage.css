@@ -10,6 +10,38 @@
   color: #bb59cb;
 }
 
+.account-form .MuiOutlinedInput-root {
+  border-radius: 1rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.account-form .MuiOutlinedInput-notchedOutline {
+  border-radius: 1rem;
+}
+
+.account-form .account-terms {
+  display: flex;
+  align-items: flex-start;
+  margin: -4px 0 2px -9px;
+}
+
+.account-form .account-terms .MuiCheckbox-root {
+  padding-top: 3px;
+}
+
+.account-form .account-terms .MuiTypography-root {
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.account-form .account-terms a {
+  color: #6254e8;
+  font-weight: 800;
+}
+
 @media (max-width: 480px) {
   .account-page--register {
     padding: 24px 12px;

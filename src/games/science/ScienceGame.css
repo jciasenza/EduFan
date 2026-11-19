@@ -1,4 +1,210 @@
-.empty-game--science {
-  min-height: 320px;
+.science-game {
+  width: min(940px, calc(100% - 32px));
   flex: 1;
+  margin: 0 auto;
+  padding: 38px 0 48px;
+}
+
+.science-card.MuiCard-root {
+  padding: clamp(24px, 5vw, 42px);
+  border: 3px solid #dfe8ff;
+  border-radius: 30px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 213, 92, 0.19) 0 8px, transparent 9px),
+    radial-gradient(circle at 93% 20%, rgba(91, 201, 197, 0.2) 0 14px, transparent 15px),
+    var(--surface);
+  box-shadow: 0 16px 35px rgba(73, 95, 160, 0.14);
+  text-align: center;
+}
+
+.science-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #49b88b;
+  box-shadow: 0 5px 0 #348b68;
+}
+
+.science-badge svg {
+  font-size: 34px;
+}
+
+.science-title.MuiTypography-root {
+  margin: 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+}
+
+.science-description.MuiTypography-root {
+  margin: 8px auto 24px;
+  color: var(--muted);
+}
+
+.science-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.science-score.MuiTypography-root {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #bd8413;
+  font-weight: 900;
+}
+
+.science-progress.MuiLinearProgress-root {
+  height: 10px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  background: #e6ecff;
+}
+
+.science-progress .MuiLinearProgress-bar {
+  border-radius: inherit;
+  background: linear-gradient(90deg, #49b88b, #83d848);
+}
+
+.science-prompt {
+  min-height: 190px;
+  padding: 24px;
+  border: 2px dashed #88d3ad;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #edfff4, #fff8dc);
+}
+
+.science-emoji {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.science-question.MuiTypography-root {
+  max-width: 720px;
+  color: #36795b;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 4vw, 32px);
+  line-height: 1.35;
+}
+
+.science-instruction.MuiTypography-root {
+  margin: 20px 0 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.science-answers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.science-answer {
+  min-height: 58px;
+  padding: 10px 16px;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  color: #fff;
+  background: #6254e8;
+  box-shadow: 0 5px 0 #4b41bd;
+  cursor: pointer;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 900;
+  transition: transform 140ms ease, background-color 140ms ease;
+}
+
+.science-answer:hover {
+  transform: translateY(-2px);
+  background: #7669f0;
+}
+
+.science-answer.is-correct,
+.science-answer.is-correct:hover {
+  background: #43b9ae;
+  box-shadow: 0 5px 0 #329b93;
+}
+
+.science-answer.is-incorrect,
+.science-answer.is-incorrect:hover {
+  background: #ff765e;
+  box-shadow: 0 5px 0 #db4d54;
+}
+
+.science-answer:disabled {
+  cursor: default;
+}
+
+.science-answer:disabled:hover {
+  transform: none;
+}
+
+.science-feedback.MuiAlert-root {
+  width: min(520px, 100%);
+  margin: 18px auto;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.science-finish {
+  padding: 24px 12px 8px;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.science-finish-emoji {
+  font-size: 66px;
+}
+
+.science-finish h2 {
+  margin: 0;
+  color: #43b9ae;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+.science-final-score.MuiTypography-root {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+@media (max-width: 560px) {
+  .science-game {
+    padding: 26px 0 36px;
+  }
+
+  .science-card.MuiCard-root {
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .science-status {
+    font-size: 14px;
+  }
+
+  .science-prompt {
+    min-height: 170px;
+    padding: 18px 12px;
+  }
+
+  .science-answers {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

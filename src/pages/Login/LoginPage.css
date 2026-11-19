@@ -49,3 +49,13 @@
   color: #5145c7;
   font-weight: 900;
 }
+
+.account-form .MuiOutlinedInput-root {
+  border-radius: 1rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.account-form .MuiOutlinedInput-notchedOutline {
+  border-radius: 1rem;
+}

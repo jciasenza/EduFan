@@ -30,7 +30,7 @@
 
 .app-footer .footer-slogan.MuiTypography-root {
   white-space: nowrap;
-  color: var(--muted);
+  color: #e0dcff;
   font-family: var(--font-heading);
   font-size: 14px;
   text-align: left;
@@ -40,6 +40,24 @@
   min-height: 132px;
   align-items: flex-end;
   justify-content: space-between;
+}
+
+.app-footer .footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 14px;
+}
+
+.app-footer .footer-legal-links a {
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.app-footer .footer-legal-links a:hover {
+  color: var(--text);
+  text-decoration: none;
 }
 
 .app-footer .footer-social-links {
@@ -84,6 +102,10 @@
   }
 
   .app-footer .footer-social-links {
+    justify-content: center;
+  }
+
+  .app-footer .footer-legal-links {
     justify-content: center;
   }
 }

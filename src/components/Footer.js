@@ -8,6 +8,7 @@ import "./Footer.css";
 export default function Footer() {
   const { translations } = useLanguage();
   const year = new Date().getFullYear();
+  const appVersion = process.env.REACT_APP_VERSION || "0.1.0";
 
   return (
     <Box component="footer" className="app-footer">
@@ -20,6 +21,12 @@ export default function Footer() {
             </Typography>
           </Link>
           <Stack className="footer-details" spacing={1}>
+            <nav className="footer-legal-links" aria-label={translations.footer?.legalNavigation}>
+              <Link to="/terminos-y-condiciones">{translations.footer?.terms}</Link>
+              <Link to="/politica-de-privacidad">{translations.footer?.privacy}</Link>
+              <Link to="/terminos-de-pago">{translations.footer?.paymentTerms}</Link>
+              <Link to="/preguntas-frecuentes">{translations.footer?.faq}</Link>
+            </nav>
             <Stack className="footer-social-links" direction="row" spacing={1}>
               <IconButton className="footer-social-link" href="https://github.com/jciasenza" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><GitHub /></IconButton>
               <IconButton className="footer-social-link" href="https://www.linkedin.com/in/juan-carlos-iasenza-8119501a9/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><LinkedIn /></IconButton>
@@ -28,6 +35,7 @@ export default function Footer() {
             </Stack>
             <Typography className="footer-copy" variant="body2">
               © {year} Juan Carlos Iasenza. Todos los derechos reservados.
+              {` · v${appVersion}`}
             </Typography>
           </Stack>
         </Stack>

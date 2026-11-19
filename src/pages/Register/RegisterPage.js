@@ -3,28 +3,37 @@ import {
   Alert,
   Box,
   Card,
+  Checkbox,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
+import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import "./RegisterPage.css";
 
 export default function RegisterPage() {
   const { translations } = useLanguage();
+  const { signUp, isConfigured } = useAuth();
   const t = translations.auth || {};
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       setPasswordMismatch(true);
@@ -33,7 +42,25 @@ export default function RegisterPage() {
     }
 
     setPasswordMismatch(false);
-    setSubmitted(true);
+    setError("");
+    if (!isConfigured) {
+      setError(t.notConnected);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await signUp(name, email, password);
+      if (result.session) {
+        navigate("/");
+      } else {
+        setSubmitted(true);
+      }
+    } catch (signUpError) {
+      setError(signUpError.message || t.authError);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,6 +75,8 @@ export default function RegisterPage() {
             name="name"
             label={t.name}
             autoComplete="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
           />
           <TextField
             fullWidth
@@ -56,6 +85,8 @@ export default function RegisterPage() {
             name="email"
             label={t.email}
             autoComplete="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
             fullWidth
@@ -115,10 +146,25 @@ export default function RegisterPage() {
               ),
             }}
           />
-          <AppButton type="submit" fullWidth>{t.registerButton}</AppButton>
+          <Box className="account-terms">
+            <Checkbox
+              checked={termsAccepted}
+              onChange={(event) => setTermsAccepted(event.target.checked)}
+              required
+              inputProps={{ "aria-labelledby": "register-terms-label" }}
+            />
+            <Typography id="register-terms-label" component="span">
+              {t.termsAcceptancePrefix}{" "}
+              <Link to="/terminos-y-condiciones">{t.termsAcceptanceLink}</Link>
+            </Typography>
+          </Box>
+          <AppButton type="submit" fullWidth disabled={loading}>
+            {loading ? t.loading : t.registerButton}
+          </AppButton>
         </Box>
         {passwordMismatch && <Alert severity="error">{t.passwordMismatch}</Alert>}
-        {submitted && <Alert severity="info">{t.notConnected}</Alert>}
+        {error && <Alert severity="error">{error}</Alert>}
+        {submitted && <Alert severity="success">{t.emailConfirmation}</Alert>}
         <Typography className="account-switch">
           {t.haveAccount} <Link to="/iniciar-sesion">{t.loginLink}</Link>
         </Typography>

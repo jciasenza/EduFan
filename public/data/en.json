@@ -6,6 +6,9 @@
     "games": "Games",
     "language": "Language",
     "theme": "Change theme",
+    "points": "points",
+    "logout": "Sign out",
+    "pointsSyncError": "Points could not be saved. Check your connection and try again.",
     "openMenu": "Open category menu",
     "closeMenu": "Close menu",
     "subscribe": "Subscribe!",
@@ -15,11 +18,12 @@
       "stories": "Stories",
       "riddles": "Riddles",
       "tongueTwisters": "Tongue twisters",
-      "play": "Playtime",
-      "drawings": "Drawings",
+      "memory": "Memory",
+      "shapesColors": "Shapes and colors",
       "resources": "Puzzles",
-      "english": "English",
+      "english": "Languages",
       "science": "Science",
+      "worldHistory": "World history",
       "math": "Math",
       "words": "Words"
     }
@@ -69,6 +73,199 @@
     "finalScore": "Your score",
     "playAgain": "Play again"
   },
+  "mathGames": {
+    "shared": {
+      "round": "Round",
+      "of": "of",
+      "score": "Score",
+      "progress": "Game progress",
+      "chooseAnswer": "Choose the correct answer!",
+      "correct": "Great job! That's right!",
+      "tryAgain": "Try again!",
+      "next": "Next",
+      "finished": "You did it!",
+      "finalScore": "Your score",
+      "playAgain": "Play again"
+    },
+    "addition": {
+      "title": "Add and subtract",
+      "description": "Solve easy sums and choose the correct answer."
+    },
+    "series": {
+      "title": "Number sequences",
+      "description": "Look for the pattern and find the missing number."
+    }
+  },
+  "tongueTwistersGame": {
+    "title": "Tongue twister challenge",
+    "description": "Say each phrase three times. Start slowly, then go faster!",
+    "round": "Challenge",
+    "of": "of",
+    "score": "Score",
+    "progress": "Game progress",
+    "repeatInstruction": "Say the tongue twister out loud three times:",
+    "repetitionProgress": "Completed repetitions",
+    "done": "completed",
+    "notDone": "not completed",
+    "repeated": "I said it!",
+    "startOver": "Start over",
+    "completed": "Great! You mastered the tongue twister!",
+    "next": "Next challenge",
+    "finished": "Challenge complete!",
+    "finalScore": "Tongue twisters completed",
+    "playAgain": "Play again"
+  },
+  "riddlesGame": {
+    "title": "Riddle me this",
+    "description": "Read the clue and choose the correct answer.",
+    "shared": {
+      "round": "Riddle",
+      "of": "of",
+      "score": "Score",
+      "progress": "Game progress",
+      "chooseAnswer": "Can you guess the answer?",
+      "correct": "Great job! You got it!",
+      "tryAgain": "That's not it! Try another answer.",
+      "next": "Next riddle",
+      "finished": "You did it!",
+      "finalScore": "Your score",
+      "playAgain": "Play again"
+    }
+  },
+  "scienceGame": {
+    "title": "Little explorers",
+    "description": "Discover fun facts and see how much you know about the world.",
+    "shared": {
+      "round": "Question",
+      "of": "of",
+      "score": "Score",
+      "progress": "Game progress",
+      "chooseAnswer": "Choose the correct answer!",
+      "correct": "Great job! That's right!",
+      "tryAgain": "That's not it! Try another answer.",
+      "next": "Next question",
+      "finished": "You did it!",
+      "finalScore": "Your score",
+      "playAgain": "Play again"
+    }
+  },
+  "puzzleGame": {
+    "title": "Meadow puzzle",
+    "description": "Move the pieces to complete the picture. Tap or drag them.",
+    "moves": "Moves",
+    "restart": "Shuffle",
+    "boardLabel": "Puzzle board",
+    "piece": "Piece",
+    "emptySlot": "Empty space for a piece",
+    "reference": "Completed picture",
+    "referenceAlt": "A kitten in a green meadow under the sun",
+    "solved": "You did it! You completed the puzzle!",
+    "playAgain": "Play again"
+  },
+  "memoryGame": {
+    "title": "Animal memory",
+    "description": "Find the matching pairs! Flip two cards on each turn.",
+    "pairs": "Pairs",
+    "moves": "Moves",
+    "restart": "Start over",
+    "boardLabel": "Memory card board",
+    "card": "Card",
+    "hidden": "face down",
+    "matched": "pair found",
+    "finished": "Awesome! You found every pair.",
+    "playAgain": "Play again"
+  },
+  "shapeColorGame": {
+    "title": "Shapes and colors",
+    "description": "Look at the shape and choose its name and color.",
+    "round": "Round",
+    "score": "Score",
+    "question": "Which shape and color do you see?",
+    "targetLabel": "Shape to identify",
+    "optionsLabel": "Shape and color options",
+    "choiceLabel": "Shape: {shape}; color: {color}",
+    "correct": "Great job! That's right!",
+    "answer": "The correct answer is",
+    "next": "Next",
+    "finish": "See result",
+    "finished": "You finished! Your score:",
+    "playAgain": "Play again",
+    "shapes": {
+      "circle": "circle",
+      "square": "square",
+      "triangle": "triangle",
+      "star": "star"
+    },
+    "colors": {
+      "red": "red",
+      "blue": "blue",
+      "yellow": "yellow",
+      "green": "green",
+      "purple": "purple",
+      "orange": "orange"
+    }
+  },
+  "songsGame": {
+    "title": "Musical echo",
+    "description": "Listen to an original melody and find its note sequence.",
+    "round": "Round",
+    "score": "Score",
+    "question": "Listen carefully and choose the matching sequence.",
+    "listen": "Listen to melody",
+    "listening": "Listening...",
+    "option": "Sequence",
+    "optionsLabel": "Note sequences",
+    "correct": "Great job! You found the melody.",
+    "incorrect": "That's not the sequence. Keep playing!",
+    "audioError": "The sound could not be played. Check your browser audio settings.",
+    "next": "Next round",
+    "finish": "See result",
+    "finished": "Your score",
+    "playAgain": "Play again"
+  },
+  "storiesGame": {
+    "title": "Magical stories",
+    "description": "Read a short story and answer a question about it.",
+    "shared": {
+      "story": "Story",
+      "of": "of",
+      "score": "Score",
+      "progress": "Game progress",
+      "correct": "Great job! You read carefully.",
+      "tryAgain": "That's not the answer. You can read the story again!",
+      "next": "Next story",
+      "finished": "You read all the stories!",
+      "finalScore": "Your score",
+      "playAgain": "Read again"
+    }
+  },
+  "languageGames": {
+    "shared": {
+      "round": "Word",
+      "of": "of",
+      "score": "Score",
+      "progress": "Game progress",
+      "englishPromptEs": "¿Cómo se dice “{word}” en inglés?",
+      "englishPromptEn": "Choose the English word for “{word}”.",
+      "spanishPromptEs": "¿Cómo se dice “{word}” en español?",
+      "spanishPromptEn": "Choose the Spanish word for “{word}”.",
+      "chooseAnswer": "Choose the correct translation!",
+      "correct": "Great job! That's right!",
+      "tryAgain": "Try again!",
+      "next": "Next word",
+      "finished": "You did it!",
+      "finalScore": "Your score",
+      "playAgain": "Play again"
+    },
+    "english": {
+      "title": "Learn English",
+      "description": "Choose the matching English word."
+    },
+    "spanish": {
+      "title": "Learn Spanish",
+      "description": "Choose the matching Spanish word."
+    }
+  },
   "home": {
     "eyebrow": "Your adventure starts here!",
     "title": "Learning is a great adventure",
@@ -78,16 +275,30 @@
     "wordCounterTitle": "Word and letter counter",
     "wordCounterDescription": "Write some text and count its words and letters.",
     "categoryHeroSubtitle": "Fun games for kids",
+    "categoryDescriptions": {
+      "songs": "Train your ear with melodies and rhythms.",
+      "stories": "Read stories and discover what happens next.",
+      "riddles": "Solve clues and put your clever thinking to work.",
+      "tongueTwisters": "Play with sounds and practice pronunciation.",
+      "memory": "Find matching pairs and exercise your memory.",
+      "shapesColors": "Recognize shapes and colors in every challenge.",
+      "resources": "Put fun puzzles together one piece at a time.",
+      "english": "Learn everyday words in English and Spanish.",
+      "science": "Explore science and discover how the world works.",
+      "worldHistory": "Travel through civilizations and great moments from the past.",
+      "math": "Solve sums and discover number patterns.",
+      "words": "Play with letters, words, and vocabulary."
+    },
     "categoryGamesTitle": "Games in this category",
     "gameComingSoon": "Coming soon!",
     "games": {
       "songs": {
-        "title": "Guess the song",
-        "description": "Listen, sing, and discover fun songs."
+        "title": "Musical echo",
+        "description": "Listen to original melodies and find the note sequence."
       },
       "stories": {
         "title": "Magical stories",
-        "description": "Choose a story and explore new worlds."
+        "description": "Read short stories and answer questions about them."
       },
       "riddles": {
         "title": "Riddle me this",
@@ -97,29 +308,45 @@
         "title": "Tongue twister challenge",
         "description": "Say each phrase without making a mistake!"
       },
-      "play": {
+      "memory": {
         "title": "Animal memory match",
         "description": "Find matching pairs of animals."
       },
-      "drawings": {
-        "title": "Draw and color",
-        "description": "Let your imagination run wild with color."
+      "shapesColors": {
+        "title": "Shapes and colors",
+        "description": "Learn to recognize shapes and colors as you play."
       },
       "puzzles": {
         "title": "Animal jigsaw puzzle",
         "description": "Put the picture together piece by piece."
       },
       "english": {
-        "title": "My first English words",
-        "description": "Learn new words while you play."
+        "title": "Learn English",
+        "description": "Practice English words in a fun way."
+      },
+      "spanish": {
+        "title": "Learn Spanish",
+        "description": "Practice Spanish words in a fun way."
       },
       "science": {
         "title": "Little explorers",
         "description": "Discover fun facts about the world around you."
       },
+      "worldHistory": {
+        "title": "World history",
+        "description": "Travel through civilizations and great moments from the past."
+      },
       "math": {
-        "title": "Number challenge",
-        "description": "Solve easy challenges with numbers."
+        "title": "Add and subtract",
+        "description": "Practice easy math problems while you play."
+      },
+      "addition": {
+        "title": "Add and subtract",
+        "description": "Solve easy sums and choose the correct answer."
+      },
+      "numberSeries": {
+        "title": "Number sequences",
+        "description": "Find the pattern and discover the missing number."
       },
       "words": {
         "title": "Word and letter counter",
@@ -133,15 +360,32 @@
     "categoryTitle": "Let's play!",
     "categoryComingSoon": "We are preparing super fun activities for this category."
   },
+  "worldHistoryGame": {
+    "title": "Time travelers",
+    "description": "Discover civilizations, inventions, and moments that changed the world.",
+    "round": "Round",
+    "of": "of",
+    "score": "Score",
+    "progress": "Game progress",
+    "chooseAnswer": "Choose the correct answer!",
+    "correct": "Great job! That's right!",
+    "tryAgain": "Try again!",
+    "next": "Next",
+    "finished": "You did it!",
+    "finalScore": "Your score",
+    "playAgain": "Play again"
+  },
   "auth": {
     "loginTitle": "Welcome back!",
-    "loginDescription": "Sign in to keep learning and playing.",
+    "loginDescription": "Sign in to keep playing and save your points.",
     "registerTitle": "Join the fun!",
-    "registerDescription": "Create an account to start this adventure.",
+    "registerDescription": "Create an account to start this adventure and collect points.",
     "name": "Name",
     "email": "Email address",
     "password": "Password",
     "confirmPassword": "Confirm password",
+    "termsAcceptancePrefix": "I have read and agree to the",
+    "termsAcceptanceLink": "Terms and conditions",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
     "loginButton": "Sign in",
@@ -151,6 +395,51 @@
     "haveAccount": "Already have an account?",
     "loginLink": "Sign in",
     "passwordMismatch": "Passwords do not match.",
-    "notConnected": "The form is ready, but authentication is not connected yet. No account was created or saved."
+    "loading": "Connecting...",
+    "emailConfirmation": "Check your email in case you need to confirm your address, then sign in.",
+    "authError": "Could not complete authentication.",
+    "notConnected": "Supabase is not configured yet. Add your project URL and public key to the .env.local file."
+  },
+  "footer": {
+    "legalNavigation": "Legal links",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy",
+    "paymentTerms": "Payment terms",
+    "faq": "Frequently asked questions"
+  },
+  "plusPage": {
+    "eyebrow": "EduFan Plus",
+    "title": "More games, more fun!",
+    "description": "Unlock all of EduFan and keep learning at your own pace.",
+    "viewPlans": "View plans",
+    "benefitsTitle": "An adventure full of benefits",
+    "benefitsDescription": "Everything you need to learn, play, and keep growing.",
+    "benefits": {
+      "allGames": "All categories unlocked",
+      "unlimitedLevels": "Unlimited levels",
+      "adFree": "Ad-free",
+      "specialAchievements": "Special achievements",
+      "weeklyContent": "New content every week",
+      "cloudProgress": "Progress saved in the cloud"
+    },
+    "plansTitle": "Choose your plan",
+    "plansDescription": "The same full experience, with an option that works for you.",
+    "plans": {
+      "monthly": "Monthly plan",
+      "yearly": "Yearly plan"
+    },
+    "monthlyBilling": "Billed every month",
+    "yearlyBilling": "One payment per year",
+    "perMonth": "/month",
+    "perYear": "/year",
+    "monthlyEquivalent": "That's US$3.33 per month.",
+    "savings": "Save US$8 per year!",
+    "popular": "Best value!",
+    "choosePlan": "Choose this plan",
+    "selected": "Plan selected",
+    "checkoutUnavailable": "Online subscription payments are not enabled yet. For now, you can create a free account.",
+    "createAccount": "Create account",
+    "bottomTitle": "Your next adventure is waiting!",
+    "bottomDescription": "Create your account and start playing on EduFan."
   }
 }

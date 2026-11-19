@@ -152,8 +152,8 @@
 }
 
 .game-card-caption {
-  min-height: 86px;
-  padding: 18px 14px;
+  min-height: 118px;
+  padding: 16px 14px;
   color: #fff;
   background: var(--card-caption);
 }
@@ -228,11 +228,12 @@
 .category-scene--stories { --scene-sky: #f783a4; --scene-hill: #bd9cf2; --scene-ground: #50c8a5; --scene-title: #e73586; }
 .category-scene--riddles { --scene-sky: #8878dc; --scene-hill: #f3bb62; --scene-ground: #79c96d; --scene-title: #7654c8; }
 .category-scene--tongue-twisters { --scene-sky: #57bdec; --scene-hill: #a4d8ff; --scene-ground: #53c894; --scene-title: #2689c8; }
-.category-scene--play { --scene-sky: #ffbd62; --scene-hill: #fb8e78; --scene-ground: #60c991; --scene-title: #ed6a4e; }
-.category-scene--drawings { --scene-sky: #ffb0ca; --scene-hill: #ffd65a; --scene-ground: #69c98b; --scene-title: #dd518c; }
+.category-scene--memory { --scene-sky: #ffbd62; --scene-hill: #fb8e78; --scene-ground: #60c991; --scene-title: #ed6a4e; }
+.category-scene--shapes-colors { --scene-sky: #ffb0ca; --scene-hill: #ffd65a; --scene-ground: #69c98b; --scene-title: #dd518c; }
 .category-scene--resources { --scene-sky: #6bcad0; --scene-hill: #a3d8f3; --scene-ground: #71ca79; --scene-title: #2989aa; }
 .category-scene--english { --scene-sky: #ffb15e; --scene-hill: #ff7b76; --scene-ground: #53c99b; --scene-title: #e65389; }
 .category-scene--science { --scene-sky: #73d5b5; --scene-hill: #c7e96b; --scene-ground: #48bc8b; --scene-title: #279b78; }
+.category-scene--world-history { --scene-sky: #e6b778; --scene-hill: #a7c7a0; --scene-ground: #6ea588; --scene-title: #99613d; }
 .category-scene--math { --scene-sky: #65bcec; --scene-hill: #9c8be8; --scene-ground: #31c89c; --scene-title: #ab2c9f; }
 .category-scene--words { --scene-sky: #5ec8ec; --scene-hill: #72d6bd; --scene-ground: #2cc69f; --scene-title: #3d59c6; }
 

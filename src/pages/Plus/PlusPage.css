@@ -1,4 +1,528 @@
-.account-page--plus {
-  min-height: 320px;
+.plus-page {
   flex: 1;
+  padding-bottom: 48px;
+}
+
+.plus-hero {
+  position: relative;
+  min-height: 360px;
+  margin: 24px clamp(16px, 5vw, 70px) 0;
+  padding: 38px clamp(24px, 6vw, 72px);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+  align-items: center;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(255, 255, 255, 0.56) 0 7px, transparent 8px),
+    radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.3) 0 12px, transparent 13px),
+    linear-gradient(125deg, #76d9d3 0%, #a8ebe1 42%, #ffe188 100%);
+  box-shadow: 0 16px 35px rgba(57, 153, 165, 0.2);
+}
+
+.plus-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+.plus-eyebrow {
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #8251ab;
+  background: rgba(255, 255, 255, 0.82);
+  font-weight: 900;
+}
+
+.plus-eyebrow svg {
+  font-size: 19px;
+}
+
+.plus-hero-copy h1 {
+  margin: 16px 0 10px;
+  color: #5543b9;
+  font-family: var(--font-heading);
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 1;
+}
+
+.plus-hero-description.MuiTypography-root {
+  max-width: 570px;
+  color: #3e5b7c;
+  font-size: clamp(17px, 2vw, 21px);
+  font-weight: 800;
+}
+
+.plus-hero-button.MuiButton-root {
+  min-height: 50px;
+  margin-top: 20px;
+  padding-inline: 23px;
+  border-radius: 26px;
+}
+
+.plus-hero-art {
+  position: relative;
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+}
+
+.plus-orbit {
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  border: 5px dashed rgba(255, 255, 255, 0.72);
+  border-radius: 50%;
+}
+
+.plus-orbit--one {
+  transform: rotate(-24deg) scaleX(0.65);
+}
+
+.plus-orbit--two {
+  transform: rotate(38deg) scaleX(0.65);
+}
+
+.plus-crown {
+  z-index: 1;
+  width: 145px;
+  height: 145px;
+  border: 8px solid rgba(255, 255, 255, 0.8);
+  border-radius: 45% 55% 48% 52%;
+  display: grid;
+  place-items: center;
+  background: #e85a9b;
+  box-shadow: 0 12px 0 rgba(150, 49, 117, 0.24);
+  font-size: 78px;
+  transform: rotate(-8deg);
+}
+
+.plus-star {
+  position: absolute;
+  z-index: 2;
+  color: #fff5a8;
+  text-shadow: 0 3px 4px rgba(142, 113, 42, 0.2);
+}
+
+.plus-star--one {
+  top: 28px;
+  right: 12%;
+  font-size: 34px;
+}
+
+.plus-star--two {
+  bottom: 30px;
+  left: 13%;
+  font-size: 28px;
+}
+
+.plus-hero-spark {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.plus-hero-spark--one {
+  top: 28px;
+  right: 35%;
+  font-size: 30px;
+}
+
+.plus-hero-spark--two {
+  bottom: 24px;
+  left: 44%;
+  color: #ffd35a;
+  font-size: 24px;
+}
+
+.plus-benefits-section,
+.plus-plans-section {
+  width: min(1120px, calc(100% - 48px));
+  margin: 50px auto 0;
+  scroll-margin-top: 28px;
+}
+
+.plus-benefits-section > h2,
+.plus-plans-section > h2 {
+  margin: 0;
+  color: #43b9ae;
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.15;
+  text-align: center;
+}
+
+.plus-section-description.MuiTypography-root {
+  margin: 8px auto 24px;
+  color: var(--muted);
+  font-size: 17px;
+  text-align: center;
+}
+
+.plus-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.plus-benefit-card.MuiCard-root {
+  min-height: 112px;
+  padding: 18px;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 8px 18px rgba(49, 74, 113, 0.09);
+}
+
+.plus-benefit-card h3.MuiTypography-root {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.plus-benefit-icon {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #6254e8;
+  box-shadow: 0 4px 0 rgba(58, 50, 152, 0.25);
+}
+
+.plus-benefit-icon svg {
+  font-size: 29px;
+}
+
+.plus-benefit-icon--unlimitedLevels { background: #43b9ae; }
+.plus-benefit-icon--adFree { background: #fa9b42; }
+.plus-benefit-icon--specialAchievements { background: #e85a9b; }
+.plus-benefit-icon--weeklyContent { background: #8d68d8; }
+.plus-benefit-icon--cloudProgress { background: #4799d1; }
+
+.plus-plans-section {
+  margin-top: 58px;
+  padding: 36px clamp(16px, 4vw, 36px) 40px;
+  border-radius: 30px;
+  background: var(--surface);
+  box-shadow: 0 12px 30px rgba(49, 74, 113, 0.12);
+}
+
+.plus-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 390px));
+  justify-content: center;
+  align-items: stretch;
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.plus-plan-card.MuiCard-root {
+  position: relative;
+  padding: 30px;
+  overflow: visible;
+  border: 3px solid var(--border);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 8px 20px rgba(49, 74, 113, 0.1);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.plus-plan-card--popular.MuiCard-root {
+  border-color: #e85a9b;
+  box-shadow: 0 12px 26px rgba(232, 90, 155, 0.18);
+}
+
+.plus-plan-card--selected.MuiCard-root {
+  border-color: #6254e8;
+  box-shadow: 0 0 0 4px rgba(98, 84, 232, 0.13), 0 12px 26px rgba(49, 74, 113, 0.13);
+}
+
+.plus-plan-card h3.MuiTypography-root {
+  margin: 4px 0 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  text-align: center;
+}
+
+.plus-plan-popular {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  padding: 6px 16px;
+  border-radius: 18px;
+  color: #fff;
+  background: #e85a9b;
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.plus-plan-billing.MuiTypography-root {
+  margin-top: 5px;
+  color: var(--muted);
+  font-weight: 800;
+  text-align: center;
+}
+
+.plus-plan-price {
+  margin: 22px 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 7px;
+}
+
+.plus-currency {
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.plus-plan-price strong {
+  color: var(--text);
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.plus-plan-period {
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.plus-plan-equivalent.MuiTypography-root {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.plus-plan-savings {
+  width: fit-content;
+  margin: 10px auto 0;
+  padding: 5px 11px;
+  border-radius: 15px;
+  color: #236d52;
+  background: #d7f6e8;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.plus-plan-includes {
+  margin: 24px 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  list-style: none;
+}
+
+.plus-plan-includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: var(--text);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.plus-plan-includes svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #43b9ae;
+  font-size: 19px;
+}
+
+.plus-plan-button.MuiButton-root {
+  width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  border-radius: 24px;
+}
+
+.plus-checkout-note.MuiAlert-root {
+  width: min(790px, 100%);
+  margin: 24px auto 0;
+  border-radius: 16px;
+}
+
+.plus-checkout-note a {
+  margin-left: 4px;
+  color: #5145c7;
+  font-weight: 900;
+}
+
+.plus-bottom-cta {
+  width: min(1120px, calc(100% - 48px));
+  margin: 42px auto 0;
+  padding: 24px clamp(18px, 4vw, 36px);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(105deg, #fff4d5, #ffe2ed);
+}
+
+.plus-bottom-cta > span {
+  font-size: 46px;
+}
+
+.plus-bottom-cta > div {
+  flex: 1;
+}
+
+.plus-bottom-cta h2.MuiTypography-root {
+  margin: 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+  font-size: 25px;
+}
+
+.plus-bottom-cta p.MuiTypography-root {
+  margin-top: 4px;
+  color: #59617b;
+}
+
+.plus-bottom-cta .MuiButton-root {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 760px) {
+  .plus-hero {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .plus-hero-copy {
+    margin: 0 auto;
+  }
+
+  .plus-eyebrow {
+    margin: 0 auto;
+  }
+
+  .plus-hero-art {
+    min-height: 210px;
+  }
+
+  .plus-orbit {
+    width: 180px;
+    height: 180px;
+  }
+
+  .plus-crown {
+    width: 120px;
+    height: 120px;
+    font-size: 64px;
+  }
+
+  .plus-benefits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .plus-page {
+    padding-bottom: 32px;
+  }
+
+  .plus-hero {
+    margin-top: 14px;
+    padding: 32px 20px 20px;
+    border-radius: 26px;
+  }
+
+  .plus-hero-art {
+    min-height: 175px;
+  }
+
+  .plus-orbit {
+    width: 155px;
+    height: 155px;
+  }
+
+  .plus-crown {
+    width: 105px;
+    height: 105px;
+    font-size: 56px;
+  }
+
+  .plus-benefits-section,
+  .plus-plans-section,
+  .plus-bottom-cta {
+    width: calc(100% - 28px);
+  }
+
+  .plus-benefits-section {
+    margin-top: 34px;
+  }
+
+  .plus-benefits-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .plus-benefit-card.MuiCard-root {
+    min-height: 82px;
+    padding: 12px 14px;
+  }
+
+  .plus-benefit-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .plus-benefit-card h3.MuiTypography-root {
+    font-size: 17px;
+  }
+
+  .plus-plans-section {
+    margin-top: 38px;
+    padding: 28px 14px;
+    border-radius: 24px;
+  }
+
+  .plus-plan-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .plus-plan-card.MuiCard-root {
+    padding: 26px 20px 20px;
+  }
+
+  .plus-bottom-cta {
+    margin-top: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .plus-bottom-cta > span {
+    width: 100%;
+    font-size: 38px;
+  }
+
+  .plus-bottom-cta > div {
+    flex-basis: 100%;
+  }
 }

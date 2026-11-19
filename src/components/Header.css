@@ -154,6 +154,38 @@
   gap: 7px;
 }
 
+.header-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-points {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  background: rgba(31, 82, 132, 0.32);
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.header-points svg {
+  font-size: 18px;
+  color: #ffdf57;
+}
+
+.header-points-error.MuiAlert-root {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
 .header-actions .header-action-button.MuiButton-root {
   min-height: 38px;
   padding: 6px 12px;
@@ -346,6 +378,11 @@
 
 .mobile-navigation-drawer .header-actions .header-action-button {
   flex: 1;
+}
+
+.mobile-navigation-drawer .header-account {
+  flex: 1;
+  justify-content: flex-end;
 }
 
 @media (max-width: 1050px) {

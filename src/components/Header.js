@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, IconButton, Tooltip } from "@mui/material";
+import { Alert, Drawer, IconButton, Tooltip } from "@mui/material";
 import {
   Calculate,
   Close,
   DarkMode,
+  EmojiEvents,
+  HistoryEdu,
   Login,
   LightMode,
+  Logout,
   Menu as MenuIcon,
   MenuBook,
   MusicNote,
@@ -19,6 +22,7 @@ import {
   WorkspacePremium,
 } from "@mui/icons-material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
 import AppButton from "./ui/AppButton";
@@ -34,34 +38,52 @@ const categories = [
     icon: TextFields,
     color: "blue",
   },
-  { id: "play", key: "play", icon: SportsEsports, color: "pink" },
-  { id: "drawings", key: "drawings", icon: Palette, color: "orange" },
+  { id: "memory", key: "memory", icon: SportsEsports, color: "pink" },
+  { id: "shapes-colors", key: "shapesColors", icon: Palette, color: "orange" },
   { id: "resources", key: "resources", icon: Extension, color: "teal" },
   { id: "english", key: "english", icon: Translate, color: "purple" },
   { id: "science", key: "science", icon: Science, color: "green" },
+  { id: "world-history", key: "worldHistory", icon: HistoryEdu, color: "purple" },
   { id: "math", key: "math", icon: Calculate, color: "blue" },
   { id: "words", key: "words", icon: TextFields, color: "pink" },
 ];
 
 const categoryRoutes = {
   words: "/juegos/contador-palabras",
+  "tongue-twisters": "/juegos/trabalenguas",
   stories: "/juegos/cuentos",
+  riddles: "/juegos/adivinanzas",
   math: "/juegos/matematicas",
   resources: "/juegos/rompecabezas",
+  "shapes-colors": "/juegos/figuras-colores",
   songs: "/juegos/canciones",
   science: "/juegos/ciencia",
+  "world-history": "/juegos/historia-mundial",
   english: "/juegos/ingles",
-  play: "/juegos/recreo",
+  memory: "/juegos/memoria",
 };
 
 export default function Header() {
   const { language, setLanguage, translations } = useLanguage();
+  const {
+    user,
+    points,
+    pointsSyncError,
+    signOut,
+  } = useAuth();
   const { themeMode, toggleTheme } = useTheme();
   const t = translations.header || {};
   const categoryText = t.categories || {};
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authActionError, setAuthActionError] = useState(false);
+
+  const handleSignOut = () => {
+    setMobileMenuOpen(false);
+    setAuthActionError(false);
+    signOut().catch(() => setAuthActionError(true));
+  };
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 1051px)");
@@ -88,6 +110,10 @@ export default function Header() {
     categories.map(({ id, key, icon: CategoryIcon, color }) => {
       const active =
         location.pathname === categoryRoutes[id] ||
+        (id === "memory" && location.pathname === "/juegos/recreo") ||
+        (id === "shapes-colors" && location.pathname === "/juegos/dibujos") ||
+        (id === "math" && location.pathname === "/juegos/series-numericas") ||
+        (id === "english" && location.pathname === "/juegos/espanol") ||
         (location.pathname === "/" &&
           new URLSearchParams(location.search).get("category") === id);
 
@@ -157,17 +183,40 @@ export default function Header() {
       >
         {t.subscribe}
       </AppButton>
-      <AppButton
-        component={Link}
-        to="/iniciar-sesion"
-        variant="secondary"
-        className="header-action-button header-login-button"
-        size="small"
-        startIcon={<Login />}
-        onClick={() => setMobileMenuOpen(false)}
-      >
-        {t.login}
-      </AppButton>
+      {user ? (
+        <div className="header-account">
+          <span className="header-points" aria-label={`${t.points}: ${points}`}>
+            <EmojiEvents aria-hidden="true" />
+            {points} {t.points}
+          </span>
+          <AppButton
+            variant="secondary"
+            className="header-action-button"
+            size="small"
+            startIcon={<Logout />}
+            onClick={handleSignOut}
+          >
+            {t.logout}
+          </AppButton>
+        </div>
+      ) : (
+        <AppButton
+          component={Link}
+          to="/iniciar-sesion"
+          variant="secondary"
+          className="header-action-button header-login-button"
+          size="small"
+          startIcon={<Login />}
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          {t.login}
+        </AppButton>
+      )}
+      {(pointsSyncError || authActionError) && (
+        <Alert className="header-points-error" severity="error" role="alert">
+          {authActionError ? t.authError : t.pointsSyncError}
+        </Alert>
+      )}
     </div>
   );
 

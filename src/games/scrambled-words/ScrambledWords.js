@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { AutoAwesome, EmojiEvents, Lightbulb } from "@mui/icons-material";
 import AppButton from "../../components/ui/AppButton";
+import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import "./ScrambledWords.css";
 
@@ -69,6 +70,7 @@ function normalizeAnswer(value) {
 }
 
 export default function ScrambledWords() {
+  const { awardPoint } = useAuth();
   const { language, translations } = useLanguage();
   const isSpanish = language === "es";
   const t = translations.scrambledWords || {};
@@ -142,6 +144,7 @@ export default function ScrambledWords() {
     if (answerTileIds.length !== currentWord.word.length) return;
     if (normalizeAnswer(answer) === normalizeAnswer(currentWord.word)) {
       setScore((currentScore) => currentScore + 1);
+      awardPoint("scrambled-words");
       setFeedback("correct");
       return;
     }

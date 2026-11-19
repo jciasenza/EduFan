@@ -1,0 +1,124 @@
+.legal-page {
+  width: 100%;
+  padding: clamp(32px, 6vw, 72px) 20px;
+}
+
+.legal-document {
+  padding: clamp(22px, 5vw, 48px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 16px 40px rgba(38, 49, 107, 0.08);
+}
+
+.legal-header {
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--border);
+}
+
+.legal-header h1 {
+  color: var(--text);
+  font-weight: 900;
+}
+
+.legal-intro {
+  margin-top: 14px !important;
+  color: var(--muted);
+  font-size: 1.05rem !important;
+  line-height: 1.7 !important;
+}
+
+.legal-updated {
+  margin-top: 12px !important;
+  color: var(--muted);
+  font-size: 0.85rem !important;
+}
+
+.legal-sections,
+.legal-faq {
+  display: grid;
+  gap: 18px;
+  margin: 28px 0;
+}
+
+.legal-section {
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--page-bg);
+}
+
+.legal-section h2 {
+  margin-bottom: 10px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.legal-section p,
+.legal-faq-item p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.legal-faq-item {
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--page-bg);
+}
+
+.legal-faq-item summary {
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.legal-faq-item summary::marker {
+  color: #6254e8;
+}
+
+.legal-draft-notice {
+  margin-top: 26px;
+  line-height: 1.6;
+}
+
+.legal-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 24px;
+}
+
+.legal-related-links a {
+  color: #6254e8;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.legal-related-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .legal-page {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .legal-document {
+    border-radius: 18px;
+  }
+
+  .legal-section,
+  .legal-faq-item {
+    padding: 16px;
+  }
+
+  .legal-header h1 {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,200 @@
+.shape-color-game {
+  width: min(940px, calc(100% - 32px));
+  flex: 1;
+  margin: 0 auto;
+  padding: 38px 0 48px;
+}
+
+.shape-color-card.MuiCard-root {
+  padding: clamp(24px, 5vw, 42px);
+  border: 3px solid #dfe8ff;
+  border-radius: 30px;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 213, 92, 0.19) 0 8px, transparent 9px),
+    radial-gradient(circle at 93% 20%, rgba(91, 201, 197, 0.2) 0 14px, transparent 15px),
+    var(--surface);
+  box-shadow: 0 16px 35px rgba(73, 95, 160, 0.14);
+  text-align: center;
+}
+
+.shape-color-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffbd62;
+  box-shadow: 0 5px 0 #e99443;
+  font-size: 34px;
+}
+
+.shape-color-title.MuiTypography-root {
+  margin: 0;
+  color: #6254e8;
+  font-family: var(--font-heading);
+}
+
+.shape-color-description.MuiTypography-root {
+  margin: 8px auto 24px;
+  color: var(--muted);
+}
+
+.shape-color-score {
+  width: min(560px, 100%);
+  margin: 0 auto 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.shape-color-question.MuiTypography-root {
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 900;
+}
+
+.shape-color-target {
+  width: 142px;
+  height: 142px;
+  margin: 16px auto 22px;
+  border: 3px dashed #dfe4f2;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+}
+
+.shape-color-icon {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 auto;
+}
+
+.shape-color-target .shape-color-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.shape-color-options {
+  width: min(600px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.shape-color-option {
+  min-height: 84px;
+  padding: 12px 16px;
+  border: 3px solid #dfe4f2;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text);
+  background: var(--surface);
+  cursor: pointer;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 900;
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.shape-color-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #9c91ff;
+  background: #f7f5ff;
+}
+
+.shape-color-option:focus-visible:not(:disabled) {
+  outline: 3px solid #9c91ff;
+  outline-offset: 3px;
+}
+
+.shape-color-option:disabled {
+  cursor: default;
+}
+
+.shape-color-option.is-correct {
+  border-color: #67c89b;
+  background: #e8fff3;
+}
+
+.shape-color-option.is-incorrect {
+  border-color: #f2a0a0;
+  background: #fff0f0;
+}
+
+:root[data-theme="dark"] .shape-color-option:hover:not(:disabled),
+:root[data-theme="dark"] .shape-color-option:focus-visible:not(:disabled) {
+  color: #f5f7ff;
+  background: #343956;
+}
+
+:root[data-theme="dark"] .shape-color-option.is-correct {
+  color: #173c2c;
+  background: #b7efd8;
+}
+
+:root[data-theme="dark"] .shape-color-option.is-incorrect {
+  color: #512525;
+  background: #ffd1d1;
+}
+
+.shape-color-feedback.MuiAlert-root {
+  width: min(500px, 100%);
+  margin: 18px auto;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.shape-color-finished-icon {
+  margin: 22px 0 8px;
+  font-size: 62px;
+}
+
+.shape-color-final-score.MuiTypography-root {
+  margin: 8px auto 22px;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 900;
+}
+
+@media (max-width: 560px) {
+  .shape-color-game {
+    padding: 26px 0 36px;
+  }
+
+  .shape-color-card.MuiCard-root {
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .shape-color-score {
+    justify-content: center;
+  }
+
+  .shape-color-options {
+    gap: 8px;
+  }
+
+  .shape-color-option {
+    min-height: 76px;
+    padding: 10px 6px;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+  }
+
+  .shape-color-option .shape-color-icon {
+    width: 42px;
+    height: 42px;
+  }
+}
