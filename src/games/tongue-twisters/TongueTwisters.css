@@ -45,6 +45,23 @@
   color: var(--muted);
 }
 
+.tongue-twister-loading,
+.tongue-twister-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.tongue-twister-loading {
+  padding: 32px 0;
+  color: var(--muted);
+}
+
+.tongue-twister-content-error {
+  width: min(620px, 100%);
+  margin: 0 auto;
+}
+
 .tongue-twister-status {
   display: flex;
   align-items: center;

@@ -1,52 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Drawer, IconButton, Tooltip } from "@mui/material";
+import { Alert, Drawer, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import {
-  Calculate,
+  ArrowDropDown,
   Close,
   DarkMode,
   EmojiEvents,
-  HistoryEdu,
   Login,
   LightMode,
   Logout,
   Menu as MenuIcon,
-  MenuBook,
-  MusicNote,
-  Palette,
-  Science,
-  SportsEsports,
-  TextFields,
-  Translate,
-  Extension,
-  QuestionAnswer,
   WorkspacePremium,
 } from "@mui/icons-material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../context/LanguageContext";
+import { useGameCatalog } from "../context/GameCatalogContext";
 import { useTheme } from "../context/ThemeContext";
+import getCatalogIcon from "./games/catalogIcons";
 import AppButton from "./ui/AppButton";
 import "./Header.css";
-
-const categories = [
-  { id: "songs", key: "songs", icon: MusicNote, color: "coral" },
-  { id: "stories", key: "stories", icon: MenuBook, color: "orange" },
-  { id: "riddles", key: "riddles", icon: QuestionAnswer, color: "purple" },
-  {
-    id: "tongue-twisters",
-    key: "tongueTwisters",
-    icon: TextFields,
-    color: "blue",
-  },
-  { id: "memory", key: "memory", icon: SportsEsports, color: "pink" },
-  { id: "shapes-colors", key: "shapesColors", icon: Palette, color: "orange" },
-  { id: "resources", key: "resources", icon: Extension, color: "teal" },
-  { id: "english", key: "english", icon: Translate, color: "purple" },
-  { id: "science", key: "science", icon: Science, color: "green" },
-  { id: "world-history", key: "worldHistory", icon: HistoryEdu, color: "purple" },
-  { id: "math", key: "math", icon: Calculate, color: "blue" },
-  { id: "words", key: "words", icon: TextFields, color: "pink" },
-];
 
 const categoryRoutes = {
   words: "/juegos/contador-palabras",
@@ -65,6 +37,7 @@ const categoryRoutes = {
 
 export default function Header() {
   const { language, setLanguage, translations } = useLanguage();
+  const { categories } = useGameCatalog();
   const {
     user,
     points,
@@ -73,17 +46,21 @@ export default function Header() {
   } = useAuth();
   const { themeMode, toggleTheme } = useTheme();
   const t = translations.header || {};
-  const categoryText = t.categories || {};
+  const accountName = user?.user_metadata?.display_name || user?.email || "";
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authActionError, setAuthActionError] = useState(false);
+  const [accountMenuAnchor, setAccountMenuAnchor] = useState(null);
 
   const handleSignOut = () => {
+    setAccountMenuAnchor(null);
     setMobileMenuOpen(false);
     setAuthActionError(false);
     signOut().catch(() => setAuthActionError(true));
   };
+
+  const closeAccountMenu = () => setAccountMenuAnchor(null);
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 1051px)");
@@ -107,7 +84,8 @@ export default function Header() {
   };
 
   const categoryLinks = () =>
-    categories.map(({ id, key, icon: CategoryIcon, color }) => {
+    categories.map(({ id, title, icon, color }) => {
+      const CategoryIcon = getCatalogIcon(icon);
       const active =
         location.pathname === categoryRoutes[id] ||
         (id === "memory" && location.pathname === "/juegos/recreo") ||
@@ -125,7 +103,7 @@ export default function Header() {
           onClick={() => openCategory(id)}
         >
           <CategoryIcon aria-hidden="true" />
-          <span>{categoryText[key]}</span>
+          <span>{title}</span>
         </button>
       );
     });
@@ -189,15 +167,17 @@ export default function Header() {
             <EmojiEvents aria-hidden="true" />
             {points} {t.points}
           </span>
-          <AppButton
-            variant="secondary"
-            className="header-action-button"
-            size="small"
-            startIcon={<Logout />}
-            onClick={handleSignOut}
+          <button
+            type="button"
+            className="header-user-menu-trigger"
+            aria-haspopup="menu"
+            aria-expanded={Boolean(accountMenuAnchor)}
+            onClick={(event) => setAccountMenuAnchor(event.currentTarget)}
+            title={accountName}
           >
-            {t.logout}
-          </AppButton>
+            <span>{accountName}</span>
+            <ArrowDropDown aria-hidden="true" />
+          </button>
         </div>
       ) : (
         <AppButton
@@ -271,6 +251,19 @@ export default function Header() {
           {categoryLinks(true)}
         </nav>
       </Drawer>
+      <Menu
+        anchorEl={accountMenuAnchor}
+        open={Boolean(accountMenuAnchor)}
+        onClose={closeAccountMenu}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        PaperProps={{ className: "header-account-menu" }}
+      >
+        <MenuItem onClick={handleSignOut}>
+          <Logout aria-hidden="true" />
+          {t.logout}
+        </MenuItem>
+      </Menu>
     </header>
   );
 }

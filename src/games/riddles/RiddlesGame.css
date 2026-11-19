@@ -45,6 +45,23 @@
   color: var(--muted);
 }
 
+.riddles-loading,
+.riddles-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.riddles-loading {
+  color: var(--muted);
+}
+
+.riddles-local-content-note.MuiAlert-root {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
 .riddles-status {
   display: flex;
   align-items: center;
@@ -52,14 +69,6 @@
   gap: 12px;
   margin-bottom: 8px;
   color: var(--muted);
-  font-weight: 900;
-}
-
-.riddles-score.MuiTypography-root {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #bd8413;
   font-weight: 900;
 }
 

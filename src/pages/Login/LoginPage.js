@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
+import "../AccountPage.css";
 import "./LoginPage.css";
 
 export default function LoginPage() {
@@ -85,6 +86,9 @@ export default function LoginPage() {
               ),
             }}
           />
+          <Typography className="account-recovery-link">
+            <Link to="/recuperar-contrasena">{t.forgotPassword}</Link>
+          </Typography>
           <AppButton type="submit" fullWidth disabled={loading}>
             {loading ? t.loading : t.loginButton}
           </AppButton>

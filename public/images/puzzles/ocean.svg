@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="water" x2="0" y2="1">
+      <stop stop-color="#73ddf2"/>
+      <stop offset="1" stop-color="#1685c2"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="48" fill="#b9f1ff"/>
+  <circle cx="390" cy="92" r="43" fill="#ffe36d"/>
+  <path d="M0 180q57-31 114 0t114 0 114 0 114 0 114 0v332H0Z" fill="url(#water)"/>
+  <path d="M0 216q57-25 114 0t114 0 114 0 114 0 114 0" fill="none" stroke="#ddfbff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M0 438q57-26 114 0t114 0 114 0 114 0 114 0" fill="none" stroke="#a2e8e8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M113 318q47-81 144-74 79 5 113 69-36 65-121 70-89 5-136-65" fill="#6ccee0" stroke="#1885ae" stroke-width="10"/>
+  <path d="M166 347q-78 3-113 70 73-3 124-40" fill="#6ccee0" stroke="#1885ae" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M235 263q-6-53 28-83 42 46 31 92" fill="#77d7e7" stroke="#1885ae" stroke-width="10" stroke-linejoin="round"/>
+  <circle cx="315" cy="310" r="10" fill="#203f5b"/>
+  <path d="M323 339q-18 25-43 4" fill="none" stroke="#203f5b" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="349" cy="334" r="9" fill="#f79c9c" opacity=".8"/>
+  <path d="M77 278q21-29 42 0m-19 0q26-37 52 0m211 124q17-25 34 0m-16 0q20-33 40 0" fill="none" stroke="#f1ffff" stroke-width="9" stroke-linecap="round"/>
+  <path d="M84 113q13-19 26 0m-13 0q17-25 34 0m275 70q12-19 24 0m-12 0q15-24 30 0" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M84 486v-45m0 20q-22-20-35-4m35 0q18-21 31-8m324 37v-51m0 23q-22-21-35-5m35 1q17-22 31-8" fill="none" stroke="#f7e28a" stroke-width="8" stroke-linecap="round"/>
+</svg>

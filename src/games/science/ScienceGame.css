@@ -45,6 +45,18 @@
   color: var(--muted);
 }
 
+.science-loading,
+.science-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.science-loading {
+  color: var(--muted);
+}
+
 .science-status {
   display: flex;
   align-items: center;
@@ -157,6 +169,11 @@
   width: min(520px, 100%);
   margin: 18px auto;
   border-radius: 14px;
+  text-align: left;
+}
+
+.science-content-error .MuiAlert-root {
+  width: min(520px, 100%);
   text-align: left;
 }
 

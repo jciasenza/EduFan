@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Alert, Card, Typography } from "@mui/material";
 import { AutoAwesome, CheckCircle, MusicNote, Replay } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
+import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import "./SongsGame.css";
@@ -46,6 +48,8 @@ function createRounds() {
 export default function SongsGame() {
   const { awardPoint } = useAuth();
   const { translations } = useLanguage();
+  const toolbarText = translations.gameToolbar || {};
+  const navigate = useNavigate();
   const t = translations.songsGame || {};
   const [rounds, setRounds] = useState(createRounds);
   const [roundIndex, setRoundIndex] = useState(0);
@@ -139,6 +143,14 @@ export default function SongsGame() {
   return (
     <main className="songs-game">
       <Card className="songs-card" component="section">
+        <GameToolbar
+          level={1}
+          points={score}
+          levelLabel={toolbarText.level}
+          pointsLabel={toolbarText.points}
+          exitLabel={toolbarText.exit}
+          onExit={() => navigate("/?category=songs")}
+        />
         <div className="songs-badge" aria-hidden="true"><MusicNote /></div>
         <Typography component="h1" variant="h3" className="songs-title">
           {t.title}
@@ -149,7 +161,6 @@ export default function SongsGame() {
           <>
             <div className="songs-status">
               <span>{t.round}: {roundIndex + 1} / {ROUND_COUNT}</span>
-              <span>{t.score}: {score}</span>
             </div>
             <Typography className="songs-question">{t.question}</Typography>
             <AppButton

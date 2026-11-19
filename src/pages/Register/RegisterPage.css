@@ -10,16 +10,6 @@
   color: #bb59cb;
 }
 
-.account-form .MuiOutlinedInput-root {
-  border-radius: 1rem;
-  background: var(--surface);
-  color: var(--text);
-}
-
-.account-form .MuiOutlinedInput-notchedOutline {
-  border-radius: 1rem;
-}
-
 .account-form .account-terms {
   display: flex;
   align-items: flex-start;

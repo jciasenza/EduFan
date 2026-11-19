@@ -41,6 +41,23 @@
   color: var(--muted);
 }
 
+.shape-color-loading,
+.shape-color-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.shape-color-loading {
+  padding: 32px 0;
+  color: var(--muted);
+}
+
+.shape-color-content-error {
+  width: min(620px, 100%);
+  margin: 0 auto;
+}
+
 .shape-color-score {
   width: min(560px, 100%);
   margin: 0 auto 14px;
@@ -152,6 +169,11 @@
   margin: 18px auto;
   border-radius: 14px;
   text-align: left;
+}
+
+.shape-color-save-error.MuiAlert-root {
+  width: min(500px, 100%);
+  margin: 18px auto;
 }
 
 .shape-color-finished-icon {

@@ -45,6 +45,23 @@
   color: var(--muted);
 }
 
+.stories-loading,
+.stories-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.stories-loading {
+  color: var(--muted);
+}
+
+.stories-content-error .MuiAlert-root {
+  width: min(520px, 100%);
+  text-align: left;
+}
+
 .stories-status {
   display: flex;
   align-items: center;

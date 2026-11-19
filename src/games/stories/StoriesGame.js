@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { Alert, Card, LinearProgress, Typography } from "@mui/material";
-import { AutoAwesome, EmojiEvents, MenuBook } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import { Alert, Card, CircularProgress, LinearProgress, Typography } from "@mui/material";
+import { AutoAwesome, MenuBook } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
+import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
+import supabase from "../../lib/supabaseClient";
 import "./StoriesGame.css";
 
 const stories = {
@@ -102,21 +105,157 @@ function shuffle(items) {
   return shuffled;
 }
 
-function createStoryOrder(storySet) {
-  return shuffle(storySet.map((_, index) => index));
+function isValidStorySet(items) {
+  return Array.isArray(items) && items.length > 0 && items.every((item) => (
+    item
+    && typeof item.title === "string"
+    && item.title.trim().length > 0
+    && typeof item.story === "string"
+    && item.story.trim().length > 0
+    && typeof item.question === "string"
+    && item.question.trim().length > 0
+    && typeof item.correct === "string"
+    && Array.isArray(item.options)
+    && item.options.length >= 2
+    && item.options.every((option) => typeof option === "string" && option.trim().length > 0)
+    && item.options.includes(item.correct)
+  ));
+}
+
+function getLocalCompletedLevel() {
+  const storedProgress = localStorage.getItem("game-progress:stories:1");
+  if (storedProgress === null) return 0;
+  const completedLevel = Number(storedProgress);
+  if (!Number.isSafeInteger(completedLevel) || completedLevel < 0) {
+    throw new Error("Stored stories progress is invalid.");
+  }
+  return completedLevel;
 }
 
 export default function StoriesGame() {
-  const { awardPoint } = useAuth();
+  const { awardPoint, user, loading: authLoading } = useAuth();
   const { language, translations } = useLanguage();
   const gameText = translations.storiesGame || {};
   const text = gameText.shared || {};
-  const storySet = stories[language === "es" ? "es" : "en"];
-  const [storyOrder, setStoryOrder] = useState(() => createStoryOrder(storySet));
+  const navigate = useNavigate();
+  const activeLanguage = language === "es" ? "es" : "en";
+  const [storySet, setStorySet] = useState([]);
+  const [storyOrder, setStoryOrder] = useState([]);
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [contentLoading, setContentLoading] = useState(true);
+  const [contentError, setContentError] = useState("");
+  const [usingLocalContent, setUsingLocalContent] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const [level, setLevel] = useState(1);
+  const [allLevelsComplete, setAllLevelsComplete] = useState(false);
+  const [progressError, setProgressError] = useState("");
+  const [savingProgress, setSavingProgress] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    if (authLoading) return () => { active = false; };
+
+    const loadStories = async () => {
+      setContentError("");
+      setProgressError("");
+      setContentLoading(true);
+      setAllLevelsComplete(false);
+      let loadingProgress = false;
+
+      try {
+        let levelData;
+        let completed = 0;
+        let isLocal = false;
+        let levelAlreadyComplete = false;
+        if (!supabase) {
+          levelData = stories[activeLanguage];
+          isLocal = true;
+          loadingProgress = true;
+          completed = getLocalCompletedLevel();
+          loadingProgress = false;
+          levelAlreadyComplete = completed > 0;
+        } else {
+          const { data, error } = await supabase
+            .from("game_content")
+            .select("content, level")
+            .eq("game_id", "stories")
+            .eq("language", activeLanguage)
+            .eq("volume", 1)
+            .eq("is_published", true)
+            .order("level");
+          if (error) throw error;
+          if (!data?.length) throw new Error(`No published stories found (${activeLanguage}).`);
+
+          const levels = {};
+          data.forEach((row) => {
+            if (!isValidStorySet(row.content)) {
+              throw new Error(`Published story level ${row.level} (${activeLanguage}) has an invalid format.`);
+            }
+            levels[row.level] = row.content;
+          });
+          loadingProgress = true;
+          if (user) {
+            const { data: savedProgress, error: progressQueryError } = await supabase
+              .from("user_game_progress")
+              .select("highest_completed_level")
+              .eq("game_id", "stories")
+              .eq("volume", 1)
+              .maybeSingle();
+            if (progressQueryError) throw progressQueryError;
+            completed = savedProgress?.highest_completed_level || 0;
+          } else {
+            completed = getLocalCompletedLevel();
+          }
+          loadingProgress = false;
+          const nextLevel = completed + 1;
+          const levelToLoad = levels[nextLevel] ? nextLevel : Math.max(1, completed);
+          levelData = levels[levelToLoad];
+          if (!levelData) throw new Error(`No published stories available for level ${levelToLoad}.`);
+          levelAlreadyComplete = !levels[nextLevel] && completed > 0;
+          if (!active) return;
+          setLevel(levelToLoad);
+          setAllLevelsComplete(levelAlreadyComplete);
+        }
+
+        if (!isValidStorySet(levelData)) {
+          throw new Error(`Story content has an invalid format (${activeLanguage}).`);
+        }
+        if (!active) return;
+        setStorySet(levelData);
+        setStoryOrder(shuffle(levelData.map((_, index) => index)));
+        setRound(levelAlreadyComplete ? levelData.length : 0);
+        setScore(0);
+        setSelectedAnswer("");
+        setFeedback("");
+        setUsingLocalContent(isLocal);
+        if (isLocal) {
+          setLevel(Math.max(1, completed));
+          setAllLevelsComplete(levelAlreadyComplete);
+        }
+        setContentLoading(false);
+      } catch (error) {
+        if (!active) return;
+        console.error("Could not load stories or game progress:", error);
+        setStorySet([]);
+        setStoryOrder([]);
+        setContentError(loadingProgress ? text.progressLoadError : text.contentLoadError);
+        setContentLoading(false);
+      }
+    };
+
+    loadStories();
+    return () => { active = false; };
+  }, [
+    activeLanguage,
+    authLoading,
+    retryCount,
+    text.contentLoadError,
+    text.progressLoadError,
+    user,
+  ]);
 
   const finished = round >= storyOrder.length;
   const currentStory = finished ? null : storySet[storyOrder[round]];
@@ -135,36 +274,95 @@ export default function StoriesGame() {
     setFeedback("incorrect");
   };
 
-  const handleNext = () => {
+  const completeLevel = async () => {
+    setSavingProgress(true);
+    setProgressError("");
+    try {
+      if (supabase && user) {
+        const { data, error } = await supabase.rpc("complete_game_level", {
+          p_game_id: "stories",
+          p_volume: 1,
+          p_language: activeLanguage,
+          p_level: level,
+        });
+        if (error) throw error;
+        const completed = Number(data);
+        if (!Number.isSafeInteger(completed) || completed < level) {
+          throw new Error("The stories progress response is invalid.");
+        }
+      } else {
+        localStorage.setItem("game-progress:stories:1", String(level));
+      }
+      setRound(storyOrder.length);
+      setAllLevelsComplete(true);
+    } catch (error) {
+      console.error("Could not save completed stories level:", error);
+      setRound(storyOrder.length);
+      setProgressError(text.progressSaveError);
+    } finally {
+      setSavingProgress(false);
+    }
+  };
+
+  const handleNext = async () => {
+    if (round === storyOrder.length - 1) {
+      await completeLevel();
+      return;
+    }
     setRound((currentRound) => currentRound + 1);
     setSelectedAnswer("");
     setFeedback("");
   };
 
   const handleRestart = () => {
-    setStoryOrder(createStoryOrder(storySet));
+    setStoryOrder(shuffle(storySet.map((_, index) => index)));
     setRound(0);
     setScore(0);
     setSelectedAnswer("");
     setFeedback("");
+    setAllLevelsComplete(false);
   };
 
   return (
     <main className="stories-game">
       <Card className="stories-card" component="section">
+        <GameToolbar
+          level={level}
+          points={score}
+          levelLabel={text.level}
+          pointsLabel={text.score}
+          exitLabel={text.exit}
+          onExit={() => navigate("/?category=stories")}
+        />
         <div className="stories-badge" aria-hidden="true"><MenuBook /></div>
         <Typography component="h1" variant="h3" className="stories-title">
           {gameText.title}
         </Typography>
         <Typography className="stories-description">{gameText.description}</Typography>
 
+        {contentLoading ? (
+          <div className="stories-loading" role="status">
+            <CircularProgress aria-label={text.contentLoading} />
+            <Typography>{text.contentLoading}</Typography>
+          </div>
+        ) : contentError ? (
+          <div className="stories-content-error">
+            <Alert severity="error" role="alert">{contentError}</Alert>
+            <AppButton onClick={() => setRetryCount((count) => count + 1)}>
+              {text.retry}
+            </AppButton>
+          </div>
+        ) : (
+          <>
+        {usingLocalContent && (
+          <Alert className="stories-feedback" severity="info" role="status">
+            {text.localContentNotice}
+          </Alert>
+        )}
         {!finished ? (
           <>
             <div className="stories-status">
               <Typography>{text.story} {round + 1} {text.of} {storyOrder.length}</Typography>
-              <Typography className="stories-score">
-                <EmojiEvents aria-hidden="true" /> {text.score}: {score}
-              </Typography>
             </div>
             <LinearProgress
               className="stories-progress"
@@ -208,8 +406,8 @@ export default function StoriesGame() {
                 <Alert className="stories-feedback" severity="success" role="status">
                   {text.correct}
                 </Alert>
-                <AppButton onClick={handleNext} endIcon={<AutoAwesome />}>
-                  {text.next}
+                <AppButton onClick={handleNext} disabled={savingProgress} endIcon={<AutoAwesome />}>
+                  {round === storyOrder.length - 1 ? text.finishLevel : text.next}
                 </AppButton>
               </>
             )}
@@ -222,14 +420,24 @@ export default function StoriesGame() {
         ) : (
           <div className="stories-finish">
             <span className="stories-finish-emoji" aria-hidden="true">🎉</span>
-            <Typography component="h2">{text.finished}</Typography>
+            <Typography component="h2">
+              {allLevelsComplete ? text.allLevelsComplete : text.finished}
+            </Typography>
             <Typography className="stories-final-score">
               {text.finalScore}: {score} / {storyOrder.length}
             </Typography>
-            <AppButton onClick={handleRestart} endIcon={<AutoAwesome />}>
-              {text.playAgain}
+            {progressError && <Alert severity="error" role="alert">{progressError}</Alert>}
+            {savingProgress && <CircularProgress aria-label={text.savingProgress} />}
+            <AppButton
+              onClick={progressError ? completeLevel : handleRestart}
+              disabled={savingProgress}
+              endIcon={<AutoAwesome />}
+            >
+              {progressError ? text.retry : (allLevelsComplete ? text.playAgain : text.continue)}
             </AppButton>
           </div>
+        )}
+          </>
         )}
       </Card>
     </main>

@@ -41,6 +41,23 @@
   color: var(--muted);
 }
 
+.memory-loading,
+.memory-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.memory-loading {
+  padding: 32px 0;
+  color: var(--muted);
+}
+
+.memory-content-error {
+  width: min(620px, 100%);
+  margin: 0 auto;
+}
+
 .memory-status {
   margin-bottom: 16px;
   display: flex;

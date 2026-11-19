@@ -45,6 +45,18 @@
   color: var(--muted);
 }
 
+.world-history-loading,
+.world-history-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.world-history-loading {
+  color: var(--muted);
+}
+
 .world-history-status {
   display: flex;
   align-items: center;
@@ -153,6 +165,11 @@
   width: min(520px, 100%);
   margin: 18px auto;
   border-radius: 14px;
+  text-align: left;
+}
+
+.world-history-content-error .MuiAlert-root {
+  width: min(520px, 100%);
   text-align: left;
 }
 

@@ -1,15 +1,19 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   Box,
   Card,
+  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
-import { AutoAwesome, EmojiEvents, Lightbulb } from "@mui/icons-material";
+import { AutoAwesome, Lightbulb } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
+import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
+import supabase from "../../lib/supabaseClient";
 import "./ScrambledWords.css";
 
 const wordSets = {
@@ -69,19 +73,150 @@ function normalizeAnswer(value) {
   return value.trim().toLocaleLowerCase().normalize("NFC");
 }
 
+function isValidWordSet(items) {
+  return Array.isArray(items) && items.length > 0 && items.every((item) => (
+    item
+    && typeof item.word === "string"
+    && item.word.trim().length > 0
+    && typeof item.clue === "string"
+    && item.clue.trim().length > 0
+    && (!item.emoji || typeof item.emoji === "string")
+  ));
+}
+
+function getLocalCompletedLevel() {
+  const storedProgress = localStorage.getItem("game-progress:scrambled-words:1");
+  if (storedProgress === null) return 0;
+  const completedLevel = Number(storedProgress);
+  if (!Number.isSafeInteger(completedLevel) || completedLevel < 0) {
+    throw new Error("Stored scrambled words progress is invalid.");
+  }
+  return completedLevel;
+}
+
 export default function ScrambledWords() {
-  const { awardPoint } = useAuth();
+  const { awardPoint, user, loading: authLoading } = useAuth();
   const { language, translations } = useLanguage();
-  const isSpanish = language === "es";
+  const toolbarText = translations.gameToolbar || {};
+  const navigate = useNavigate();
+  const activeLanguage = language === "es" ? "es" : "en";
   const t = translations.scrambledWords || {};
-  const words = wordSets[isSpanish ? "es" : "en"];
-  const [questionOrder, setQuestionOrder] = useState(() => shuffle(words.map((_, index) => index)));
+  const [words, setWords] = useState([]);
+  const [questionOrder, setQuestionOrder] = useState([]);
   const [round, setRound] = useState(0);
   const [answerTileIds, setAnswerTileIds] = useState([]);
   const [draggedTileId, setDraggedTileId] = useState("");
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [hintVisible, setHintVisible] = useState(false);
+  const [contentLoading, setContentLoading] = useState(true);
+  const [contentError, setContentError] = useState("");
+  const [usingLocalContent, setUsingLocalContent] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const [level, setLevel] = useState(1);
+  const [availableLevels, setAvailableLevels] = useState({});
+  const [allLevelsComplete, setAllLevelsComplete] = useState(false);
+  const [progressError, setProgressError] = useState("");
+  const [savingProgress, setSavingProgress] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    if (authLoading) return () => { active = false; };
+
+    const loadWords = async () => {
+      setContentError("");
+      setProgressError("");
+      setContentLoading(true);
+      setAllLevelsComplete(false);
+      let loadingProgress = false;
+
+      try {
+        let levels;
+        let completed = 0;
+        let isLocal = false;
+        if (!supabase) {
+          levels = { 1: wordSets[activeLanguage] };
+          isLocal = true;
+          loadingProgress = true;
+          completed = getLocalCompletedLevel();
+          loadingProgress = false;
+        } else {
+          const { data, error } = await supabase
+            .from("game_content")
+            .select("content, level")
+            .eq("game_id", "scrambled-words")
+            .eq("language", activeLanguage)
+            .eq("volume", 1)
+            .eq("is_published", true)
+            .order("level");
+          if (error) throw error;
+          if (!data?.length) throw new Error(`No published scrambled words found (${activeLanguage}).`);
+
+          levels = {};
+          data.forEach((row) => {
+            if (!isValidWordSet(row.content)) {
+              throw new Error(`Published scrambled words level ${row.level} (${activeLanguage}) has an invalid format.`);
+            }
+            levels[row.level] = row.content;
+          });
+
+          loadingProgress = true;
+          if (user) {
+            const { data: savedProgress, error: progressQueryError } = await supabase
+              .from("user_game_progress")
+              .select("highest_completed_level")
+              .eq("game_id", "scrambled-words")
+              .eq("volume", 1)
+              .maybeSingle();
+            if (progressQueryError) throw progressQueryError;
+            completed = savedProgress?.highest_completed_level || 0;
+          } else {
+            completed = getLocalCompletedLevel();
+          }
+          loadingProgress = false;
+        }
+
+        if (!active) return;
+        const nextLevel = completed + 1;
+        const levelToLoad = levels[nextLevel] ? nextLevel : Math.max(1, completed);
+        const selectedWords = levels[levelToLoad];
+        if (!selectedWords) {
+          throw new Error(`No published scrambled words available for level ${levelToLoad}.`);
+        }
+        const order = shuffle(selectedWords.map((_, index) => index));
+        setAvailableLevels(levels);
+        setWords(selectedWords);
+        setQuestionOrder(order);
+        setLevel(levelToLoad);
+        setRound(!levels[nextLevel] && completed > 0 ? order.length : 0);
+        setAnswerTileIds([]);
+        setDraggedTileId("");
+        setScore(0);
+        setFeedback("");
+        setHintVisible(false);
+        setUsingLocalContent(isLocal);
+        setAllLevelsComplete(!levels[nextLevel] && completed > 0);
+        setContentLoading(false);
+      } catch (error) {
+        if (!active) return;
+        console.error("Could not load scrambled words or game progress:", error);
+        setWords([]);
+        setQuestionOrder([]);
+        setContentError(loadingProgress ? t.progressLoadError : t.contentLoadError);
+        setContentLoading(false);
+      }
+    };
+
+    loadWords();
+    return () => { active = false; };
+  }, [
+    activeLanguage,
+    authLoading,
+    retryCount,
+    t.contentLoadError,
+    t.progressLoadError,
+    user,
+  ]);
 
   const finished = round >= questionOrder.length;
   const currentWord = finished ? null : words[questionOrder[round]];
@@ -153,11 +288,61 @@ export default function ScrambledWords() {
   };
 
   const handleNext = () => {
+    if (round === questionOrder.length - 1) {
+      completeLevel();
+      return;
+    }
     setRound((currentRound) => currentRound + 1);
     setAnswerTileIds([]);
     setFeedback("");
     setHintVisible(false);
   };
+
+  async function completeLevel() {
+    setSavingProgress(true);
+    setProgressError("");
+    try {
+      let completed = level;
+      if (supabase && user) {
+        const { data, error } = await supabase.rpc("complete_game_level", {
+          p_game_id: "scrambled-words",
+          p_volume: 1,
+          p_language: activeLanguage,
+          p_level: level,
+        });
+        if (error) throw error;
+        completed = Number(data);
+        if (!Number.isSafeInteger(completed) || completed < level) {
+          throw new Error("The scrambled words progress response is invalid.");
+        }
+      } else {
+        localStorage.setItem("game-progress:scrambled-words:1", String(level));
+      }
+
+      const nextLevel = completed + 1;
+      if (availableLevels[nextLevel]) {
+        const nextWords = availableLevels[nextLevel];
+        setWords(nextWords);
+        setQuestionOrder(shuffle(nextWords.map((_, index) => index)));
+        setLevel(nextLevel);
+        setRound(0);
+        setAnswerTileIds([]);
+        setScore(0);
+        setFeedback("");
+        setHintVisible(false);
+        setAllLevelsComplete(false);
+      } else {
+        setRound(questionOrder.length);
+        setAllLevelsComplete(true);
+      }
+    } catch (error) {
+      console.error("Could not save completed scrambled words level:", error);
+      setRound(questionOrder.length);
+      setProgressError(t.progressSaveError);
+    } finally {
+      setSavingProgress(false);
+    }
+  }
 
   const handleRestart = () => {
     setQuestionOrder(shuffle(words.map((_, index) => index)));
@@ -166,11 +351,20 @@ export default function ScrambledWords() {
     setScore(0);
     setFeedback("");
     setHintVisible(false);
+    setAllLevelsComplete(false);
   };
 
   return (
     <main className="scrambled-game">
       <Card className="scrambled-card" component="section">
+        <GameToolbar
+          level={level}
+          points={score}
+          levelLabel={toolbarText.level}
+          pointsLabel={toolbarText.points}
+          exitLabel={toolbarText.exit}
+          onExit={() => navigate("/?category=words")}
+        />
         <div className="scrambled-badge" aria-hidden="true">
           <AutoAwesome />
         </div>
@@ -179,14 +373,30 @@ export default function ScrambledWords() {
         </Typography>
         <Typography className="scrambled-description">{t.description}</Typography>
 
+        {contentLoading ? (
+          <div className="scrambled-loading" role="status">
+            <CircularProgress aria-label={t.contentLoading} />
+            <Typography>{t.contentLoading}</Typography>
+          </div>
+        ) : contentError ? (
+          <div className="scrambled-content-error">
+            <Alert severity="error" role="alert">{contentError}</Alert>
+            <AppButton onClick={() => setRetryCount((count) => count + 1)}>
+              {t.retry}
+            </AppButton>
+          </div>
+        ) : (
+          <>
+        {usingLocalContent && (
+          <Alert className="scrambled-feedback" severity="info" role="status">
+            {t.localContentNotice}
+          </Alert>
+        )}
         {!finished ? (
           <>
             <div className="scrambled-status">
               <Typography className="scrambled-round">
                 {t.round} {round + 1} {t.of} {questionOrder.length}
-              </Typography>
-              <Typography className="scrambled-score">
-                <EmojiEvents aria-hidden="true" /> {t.score}: {score}
               </Typography>
             </div>
             <LinearProgress
@@ -272,8 +482,8 @@ export default function ScrambledWords() {
             <Box className="scrambled-form">
               <div className="scrambled-actions">
                 {feedback === "correct" ? (
-                  <AppButton type="button" onClick={handleNext} endIcon={<AutoAwesome />}>
-                    {t.next}
+                  <AppButton type="button" onClick={handleNext} disabled={savingProgress} endIcon={<AutoAwesome />}>
+                    {round === questionOrder.length - 1 ? t.finishLevel : t.next}
                   </AppButton>
                 ) : (
                   <AppButton
@@ -310,14 +520,24 @@ export default function ScrambledWords() {
         ) : (
           <div className="scrambled-finish">
             <span className="finish-emoji" aria-hidden="true">🎉</span>
-            <Typography component="h2">{t.finished}</Typography>
+            <Typography component="h2">
+              {allLevelsComplete ? t.allLevelsComplete : t.finished}
+            </Typography>
             <Typography className="finish-score">
               {t.finalScore}: {score} / {questionOrder.length}
             </Typography>
-            <AppButton onClick={handleRestart} endIcon={<AutoAwesome />}>
-              {t.playAgain}
+            {progressError && <Alert severity="error" role="alert">{progressError}</Alert>}
+            {savingProgress && <CircularProgress aria-label={t.savingProgress} />}
+            <AppButton
+              onClick={progressError ? completeLevel : handleRestart}
+              disabled={savingProgress}
+              endIcon={<AutoAwesome />}
+            >
+              {progressError ? t.retry : (allLevelsComplete ? t.playAgain : t.continue)}
             </AppButton>
           </div>
+        )}
+          </>
         )}
       </Card>
     </main>

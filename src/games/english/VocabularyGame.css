@@ -45,6 +45,23 @@
   color: var(--muted);
 }
 
+.vocabulary-loading,
+.vocabulary-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.vocabulary-loading {
+  padding: 32px 0;
+  color: var(--muted);
+}
+
+.vocabulary-content-error {
+  width: min(620px, 100%);
+  margin: 0 auto;
+}
+
 .vocabulary-status {
   display: flex;
   align-items: center;

@@ -69,3 +69,27 @@ h6 {
 .account-page {
   width: 100%;
 }
+
+.app-shell main .MuiAlert-root[class*="feedback"],
+.app-shell main .MuiAlert-root[class*="success"],
+.app-shell main .MuiAlert-root[class*="content-note"] {
+  justify-content: center;
+}
+
+.app-shell main .MuiAlert-root[class*="feedback"] .MuiAlert-icon,
+.app-shell main .MuiAlert-root[class*="success"] .MuiAlert-icon,
+.app-shell main .MuiAlert-root[class*="content-note"] .MuiAlert-icon {
+  flex: 0 0 auto;
+  padding: .9rem 0;
+}
+
+.app-shell main .MuiAlert-root[class*="feedback"] .MuiAlert-message,
+.app-shell main .MuiAlert-root[class*="success"] .MuiAlert-message,
+.app-shell main .MuiAlert-root[class*="content-note"] .MuiAlert-message {
+  flex: 0 1 auto;
+  color: inherit;
+  font-family: var(--font-heading);
+  font-weight: 300;
+  text-align: center;
+  font-size: 1.5rem;
+}

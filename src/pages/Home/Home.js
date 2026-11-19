@@ -1,183 +1,67 @@
 import React from "react";
-import { Box, Card, CardActionArea, Typography } from "@mui/material";
-import {
-  Abc,
-  ArrowForward,
-  AutoStories,
-  Calculate,
-  Extension,
-  MusicNote,
-  Science,
-  HistoryEdu,
-  Star,
-  SportsEsports,
-  Translate,
-  QuestionAnswer,
-  Palette,
-  TextFields,
-} from "@mui/icons-material";
+import { Alert, Box, Button, Card, CardActionArea, Typography } from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
+import { ArrowForward, Star } from "@mui/icons-material";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
+import { useGameCatalog } from "../../context/GameCatalogContext";
 import AppButton from "../../components/ui/AppButton";
+import getCatalogIcon from "../../components/games/catalogIcons";
 import "./Home.css";
-
-const gameCards = [
-  {
-    id: "songs",
-    key: "songs",
-    game: "songs",
-    icon: MusicNote,
-    color: "orange",
-    gameRoute: "/juegos/canciones",
-  },
-  {
-    id: "stories",
-    key: "stories",
-    game: "stories",
-    icon: AutoStories,
-    color: "pink",
-    gameRoute: "/juegos/cuentos",
-  },
-  {
-    id: "riddles",
-    key: "riddles",
-    game: "riddles",
-    icon: QuestionAnswer,
-    color: "purple",
-    gameRoute: "/juegos/adivinanzas",
-  },
-  {
-    id: "tongue-twisters",
-    key: "tongueTwisters",
-    game: "tongueTwisters",
-    icon: TextFields,
-    color: "blue",
-    gameRoute: "/juegos/trabalenguas",
-  },
-  {
-    id: "memory",
-    key: "memory",
-    game: "memory",
-    icon: SportsEsports,
-    color: "teal",
-    gameRoute: "/juegos/memoria",
-  },
-  {
-    id: "shapes-colors",
-    key: "shapesColors",
-    game: "shapesColors",
-    icon: Palette,
-    color: "coral",
-    gameRoute: "/juegos/figuras-colores",
-  },
-  {
-    id: "resources",
-    key: "resources",
-    game: "puzzles",
-    icon: Extension,
-    color: "purple",
-    gameRoute: "/juegos/rompecabezas",
-  },
-  {
-    id: "english",
-    key: "english",
-    game: "english",
-    icon: Translate,
-    color: "coral",
-  },
-  {
-    id: "science",
-    key: "science",
-    game: "science",
-    icon: Science,
-    color: "yellow",
-    gameRoute: "/juegos/ciencia",
-  },
-  {
-    id: "world-history",
-    key: "worldHistory",
-    game: "worldHistory",
-    icon: HistoryEdu,
-    color: "purple",
-    gameRoute: "/juegos/historia-mundial",
-  },
-  { id: "math", key: "math", game: "math", icon: Calculate, color: "green" },
-  { id: "words", key: "words", game: "words", icon: Abc, color: "blue", gameRoute: "/juegos/contador-palabras" },
-];
 
 export default function Home() {
   const { translations } = useLanguage();
   const t = translations.home || {};
-  const categoryText = translations.header?.categories || {};
+  const { categories, games, loading: catalogLoading, error: catalogError, retry } = useGameCatalog();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { user } = useAuth();
   const selectedCategory = searchParams.get("category");
-  const selectedCategoryData = gameCards.find(({ id }) => id === selectedCategory);
-  const SelectedCategoryIcon = selectedCategoryData?.icon;
+  const selectedCategoryData = categories.find(
+    ({ id }) => id === selectedCategory,
+  );
+  const SelectedCategoryIcon = selectedCategoryData
+    ? getCatalogIcon(selectedCategoryData.icon)
+    : null;
   const selectedGames = selectedCategoryData
-    ? selectedCategoryData.id === "words"
-      ? [
-        {
-          key: "words",
-          route: "/juegos/contador-palabras",
-          Icon: Abc,
-        },
-        {
-          key: "scrambledWords",
-          route: "/juegos/palabras-revueltas",
-          Icon: TextFields,
-        },
-      ]
-      : selectedCategoryData.id === "math"
-        ? [
-          {
-            key: "addition",
-            route: "/juegos/matematicas",
-            Icon: Calculate,
-          },
-          {
-            key: "numberSeries",
-            route: "/juegos/series-numericas",
-            Icon: AutoStories,
-          },
-        ]
-      : selectedCategoryData.id === "english"
-        ? [
-          {
-            key: "english",
-            route: "/juegos/ingles",
-            Icon: Translate,
-          },
-          {
-            key: "spanish",
-            route: "/juegos/espanol",
-            Icon: Translate,
-          },
-        ]
-      : [{
-        key: selectedCategoryData.game,
-        route: selectedCategoryData.gameRoute,
-        Icon: SelectedCategoryIcon,
-      }]
+    ? games.filter((game) => game.category_id === selectedCategoryData.id)
     : [];
 
   return (
     <main className="kids-home">
+      {catalogLoading && (
+        <Typography role="status">{t.catalogLoading}</Typography>
+      )}
+      {catalogError && (
+        <Alert
+          severity="error"
+          role="alert"
+          action={<Button color="inherit" size="small" onClick={retry}>{t.catalogRetry}</Button>}
+        >
+          {catalogError}
+        </Alert>
+      )}
       {selectedCategoryData && (
         <>
-          <section className={`category-scene category-scene--${selectedCategoryData.id}`}>
+          <section
+            className={`category-scene category-scene--${selectedCategoryData.id}`}
+          >
             <div className="category-scene-cloud category-scene-cloud--one" />
             <div className="category-scene-cloud category-scene-cloud--two" />
-            <span className="category-scene-star category-scene-star--one">★</span>
-            <span className="category-scene-star category-scene-star--two">✦</span>
+            <span className="category-scene-star category-scene-star--one">
+              ★
+            </span>
+            <span className="category-scene-star category-scene-star--two">
+              ✦
+            </span>
             <div className="category-scene-character" aria-hidden="true">
               <SelectedCategoryIcon />
             </div>
             <div className="category-scene-title-wrap">
               <Typography component="h1" id="selected-category-title">
-                {categoryText[selectedCategoryData.key]}
+                {selectedCategoryData.title}
               </Typography>
-              <span>{t.categoryDescriptions?.[selectedCategoryData.key] || t.categoryHeroSubtitle}</span>
+              <span>{selectedCategoryData.description || t.categoryHeroSubtitle}</span>
             </div>
           </section>
 
@@ -190,26 +74,32 @@ export default function Home() {
               {t.categoryGamesTitle}
             </Typography>
             <div className="available-games-grid">
-              {selectedGames.map(({ key, route, Icon }) => {
-                const gameText = t.games?.[key] || {};
+              {selectedGames.map((game) => {
+                const GameIcon = getCatalogIcon(game.icon);
                 const cardContent = (
                   <GameCardContent
-                    Icon={Icon}
-                    game={gameText}
-                    comingSoonLabel={!route && t.gameComingSoon}
+                    Icon={GameIcon}
+                    game={game}
+                    comingSoonLabel={!game.route && t.gameComingSoon}
                   />
                 );
 
                 return (
                   <Card
-                    className={`available-game-card game-card-${selectedCategoryData.color}`}
-                    key={key}
+                    className={`available-game-card game-card-${game.color}`}
+                    key={game.id}
                   >
-                    {route ? (
-                      <CardActionArea component={Link} to={route} aria-label={gameText.title}>
+                    {game.route ? (
+                      <CardActionArea
+                        component={Link}
+                        to={game.route}
+                        aria-label={game.title}
+                      >
                         {cardContent}
                       </CardActionArea>
-                    ) : cardContent}
+                    ) : (
+                      cardContent
+                    )}
                   </Card>
                 );
               })}
@@ -224,27 +114,42 @@ export default function Home() {
             <div className="hero-cloud cloud-one" />
             <div className="hero-cloud cloud-two" />
             <div className="hero-copy">
-              <span className="hero-eyebrow"><Star fontSize="small" /> {t.eyebrow}</span>
-              <Typography component="h1" variant="h2">{t.title}</Typography>
+              <span className="hero-eyebrow">
+                <Star fontSize="small" /> {t.eyebrow}
+              </span>
+              <Typography component="h1" variant="h2">
+                {t.title}
+              </Typography>
               <Typography className="hero-subtitle">{t.subtitle}</Typography>
               <AppButton
                 className="hero-button"
-                onClick={() => navigate("/iniciar-sesion")}
+                onClick={() => navigate(user ? "/plus" : "/iniciar-sesion")}
                 endIcon={<ArrowForward />}
               >
                 {t.start}
               </AppButton>
             </div>
             <div className="hero-illustration" aria-hidden="true">
-              <div className="rainbow"><i /><i /><i /><i /></div>
-              <div className="book"><span>A</span><span>Á</span></div>
+              <div className="rainbow">
+                <i />
+                <i />
+                <i />
+                <i />
+              </div>
+              <div className="book">
+                <span>A</span>
+                <span>Á</span>
+              </div>
               <div className="pencil">✏️</div>
               <span className="floating-star star-a">★</span>
               <span className="floating-star star-b">★</span>
             </div>
           </section>
 
-          <section className="game-categories" aria-labelledby="game-categories-title">
+          <section
+            className="game-categories"
+            aria-labelledby="game-categories-title"
+          >
             <Typography
               id="game-categories-title"
               component="h2"
@@ -253,27 +158,33 @@ export default function Home() {
               {t.cardsTitle}
             </Typography>
             <div className="game-card-grid">
-              {gameCards.map(({ id, key, icon: GameIcon, color }) => (
-                <Card className={`game-category-card game-card-${color}`} key={key}>
-                  <CardActionArea
-                    component={Link}
-                    to={`/?category=${id}`}
-                    aria-label={categoryText[key]}
+              {categories.map((category) => {
+                const GameIcon = getCatalogIcon(category.icon);
+                return (
+                  <Card
+                    className={`game-category-card game-card-${category.color}`}
+                    key={category.id}
                   >
-                    <Box className="game-card-art" aria-hidden="true">
-                      <span className="game-card-spark spark-one" />
-                      <span className="game-card-spark spark-two" />
-                      <span className="game-card-icon"><GameIcon /></span>
-                    </Box>
-                    <Box className="game-card-caption">
-                      <Typography component="h3">{categoryText[key]}</Typography>
-                      <Typography component="p">
-                        {t.categoryDescriptions?.[key] || ""}
-                      </Typography>
-                    </Box>
-                  </CardActionArea>
-                </Card>
-              ))}
+                    <CardActionArea
+                      component={Link}
+                      to={`/?category=${category.id}`}
+                      aria-label={category.title}
+                    >
+                      <Box className="game-card-art" aria-hidden="true">
+                        <span className="game-card-spark spark-one" />
+                        <span className="game-card-spark spark-two" />
+                        <span className="game-card-icon">
+                          <GameIcon />
+                        </span>
+                      </Box>
+                      <Box className="game-card-caption">
+                        <Typography component="h3">{category.title}</Typography>
+                        <Typography component="p">{category.description}</Typography>
+                      </Box>
+                    </CardActionArea>
+                  </Card>
+                );
+              })}
             </div>
           </section>
         </>
@@ -288,7 +199,9 @@ function GameCardContent({ Icon, game, comingSoonLabel }) {
       <Box className="game-card-art" aria-hidden="true">
         <span className="game-card-spark spark-one" />
         <span className="game-card-spark spark-two" />
-        <span className="game-card-icon"><Icon /></span>
+        <span className="game-card-icon">
+          <Icon />
+        </span>
       </Box>
       <Box className="game-card-caption">
         <Typography component="h3">{game.title}</Typography>

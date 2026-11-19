@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import {
-  Alert,
-  Box,
-  Card,
-  Typography,
-} from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
+import { Alert, Box, Card, Typography } from "@mui/material";
 import {
   AllInclusive,
   AutoAwesome,
@@ -15,7 +11,7 @@ import {
   NewReleases,
   WorkspacePremium,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
 import { useLanguage } from "../../context/LanguageContext";
 import "./PlusPage.css";
@@ -33,7 +29,8 @@ export default function PlusPage() {
   const { translations } = useLanguage();
   const t = translations.plusPage || {};
   const [selectedPlan, setSelectedPlan] = useState(null);
-
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const plans = [
     {
       id: "monthly",
@@ -54,15 +51,29 @@ export default function PlusPage() {
   return (
     <main className="plus-page">
       <section className="plus-hero">
-        <span className="plus-hero-spark plus-hero-spark--one" aria-hidden="true">✦</span>
-        <span className="plus-hero-spark plus-hero-spark--two" aria-hidden="true">★</span>
+        <span
+          className="plus-hero-spark plus-hero-spark--one"
+          aria-hidden="true"
+        >
+          ✦
+        </span>
+        <span
+          className="plus-hero-spark plus-hero-spark--two"
+          aria-hidden="true"
+        >
+          ★
+        </span>
         <div className="plus-hero-copy">
           <span className="plus-eyebrow">
             <WorkspacePremium aria-hidden="true" />
             {t.eyebrow}
           </span>
-          <Typography component="h1" variant="h2">{t.title}</Typography>
-          <Typography className="plus-hero-description">{t.description}</Typography>
+          <Typography component="h1" variant="h2">
+            {t.title}
+          </Typography>
+          <Typography className="plus-hero-description">
+            {t.description}
+          </Typography>
           <AppButton
             className="plus-hero-button"
             href="#plus-plans"
@@ -80,11 +91,16 @@ export default function PlusPage() {
         </div>
       </section>
 
-      <section className="plus-benefits-section" aria-labelledby="plus-benefits-title">
+      <section
+        className="plus-benefits-section"
+        aria-labelledby="plus-benefits-title"
+      >
         <Typography component="h2" id="plus-benefits-title">
           {t.benefitsTitle}
         </Typography>
-        <Typography className="plus-section-description">{t.benefitsDescription}</Typography>
+        <Typography className="plus-section-description">
+          {t.benefitsDescription}
+        </Typography>
         <div className="plus-benefits-grid">
           {benefits.map(({ key, icon: BenefitIcon }) => (
             <Card className="plus-benefit-card" key={key} component="article">
@@ -103,8 +119,12 @@ export default function PlusPage() {
         id="plus-plans"
         aria-labelledby="plus-plans-title"
       >
-        <Typography component="h2" id="plus-plans-title">{t.plansTitle}</Typography>
-        <Typography className="plus-section-description">{t.plansDescription}</Typography>
+        <Typography component="h2" id="plus-plans-title">
+          {t.plansTitle}
+        </Typography>
+        <Typography className="plus-section-description">
+          {t.plansDescription}
+        </Typography>
 
         <div className="plus-plan-grid">
           {plans.map((plan) => (
@@ -113,7 +133,9 @@ export default function PlusPage() {
                 "plus-plan-card",
                 plan.popular ? "plus-plan-card--popular" : "",
                 selectedPlan === plan.id ? "plus-plan-card--selected" : "",
-              ].filter(Boolean).join(" ")}
+              ]
+                .filter(Boolean)
+                .join(" ")}
               key={plan.id}
               component="article"
             >
@@ -121,7 +143,9 @@ export default function PlusPage() {
                 <span className="plus-plan-popular">{t.popular}</span>
               )}
               <Typography component="h3">{t.plans?.[plan.id]}</Typography>
-              <Typography className="plus-plan-billing">{plan.billing}</Typography>
+              <Typography className="plus-plan-billing">
+                {plan.billing}
+              </Typography>
               <div className="plus-plan-price">
                 <span className="plus-currency">US$</span>
                 <strong>{plan.price}</strong>
@@ -169,8 +193,12 @@ export default function PlusPage() {
           <Typography component="h2">{t.bottomTitle}</Typography>
           <Typography>{t.bottomDescription}</Typography>
         </div>
-        <AppButton component={Link} to="/registrarse" endIcon={<AutoAwesome />}>
-          {t.createAccount}
+        <AppButton
+          className="hero-button"
+          onClick={() => navigate(user ? "/home" : "/registrarse")}
+          endIcon={<AutoAwesome />}
+        >
+          {user ? t.categoryTitle : t.createAccount}
         </AppButton>
       </section>
     </main>

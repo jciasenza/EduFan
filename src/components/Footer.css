@@ -1,5 +1,5 @@
 .app-footer {
-  padding: 18px 20px;
+  padding: 1rem;
   margin-top: auto;
   border-top: 1px solid var(--border);
   color: var(--muted);
@@ -30,10 +30,14 @@
 
 .app-footer .footer-slogan.MuiTypography-root {
   white-space: nowrap;
-  color: #e0dcff;
+  color: #3c399e;
   font-family: var(--font-heading);
   font-size: 14px;
   text-align: left;
+}
+
+:root[data-theme="dark"] .footer-slogan.MuiTypography-root {
+  color: var(--muted);
 }
 
 .app-footer .footer-details {

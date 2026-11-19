@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
+import "../AccountPage.css";
 import "./RegisterPage.css";
 
 export default function RegisterPage() {

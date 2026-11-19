@@ -118,6 +118,20 @@ export function AuthProvider({ children }) {
     return data;
   }, []);
 
+  const requestPasswordReset = useCallback(async (email) => {
+    if (!supabase) throw new Error("Supabase no está configurado.");
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/restablecer-contrasena`,
+    });
+    if (error) throw error;
+  }, []);
+
+  const updatePassword = useCallback(async (password) => {
+    if (!supabase) throw new Error("Supabase no está configurado.");
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
+  }, []);
+
   const signOut = useCallback(async () => {
     if (!supabase) throw new Error("Supabase no está configurado.");
     const { error } = await supabase.auth.signOut();
@@ -157,6 +171,8 @@ export function AuthProvider({ children }) {
     pointsSyncError,
     signUp,
     signIn,
+    requestPasswordReset,
+    updatePassword,
     signOut,
     awardPoint,
   }), [
@@ -166,6 +182,8 @@ export function AuthProvider({ children }) {
     pointsSyncError,
     signUp,
     signIn,
+    requestPasswordReset,
+    updatePassword,
     signOut,
     awardPoint,
   ]);

@@ -17,6 +17,7 @@ const NumberSeriesGame = lazy(() => import("./games/math/NumberSeriesGame"));
 const PuzzleGame = lazy(() => import("./games/puzzles/PuzzleGame"));
 const DrawingGame = lazy(() => import("./games/drawings/DrawingGame"));
 const SongsGame = lazy(() => import("./games/songs/SongsGame"));
+const ArtMusicQuiz = lazy(() => import("./games/art-music/ArtMusicQuiz"));
 const ScienceGame = lazy(() => import("./games/science/ScienceGame"));
 const WorldHistoryGame = lazy(() => import("./games/world-history/WorldHistoryGame"));
 const EnglishGame = lazy(() => import("./games/english/EnglishGame"));
@@ -26,6 +27,7 @@ const PlusPage = lazy(() => import("./pages/Plus/PlusPage"));
 const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/Register/RegisterPage"));
 const LegalPage = lazy(() => import("./pages/Legal/LegalPage"));
+const PasswordRecoveryPage = lazy(() => import("./pages/PasswordRecovery/PasswordRecoveryPage"));
 
 function lazyPage(Component) {
   return (
@@ -65,6 +67,7 @@ export default function AppRoutes() {
           <Route path="/juegos/figuras-colores" element={lazyPage(DrawingGame)} />
           <Route path="/juegos/dibujos" element={lazyPage(DrawingGame)} />
           <Route path="/juegos/canciones" element={lazyPage(SongsGame)} />
+          <Route path="/juegos/arte-musica" element={lazyPage(ArtMusicQuiz)} />
           <Route path="/juegos/ciencia" element={lazyPage(ScienceGame)} />
           <Route path="/juegos/historia-mundial" element={lazyPage(WorldHistoryGame)} />
           <Route path="/juegos/ingles" element={lazyPage(EnglishGame)} />
@@ -74,6 +77,8 @@ export default function AppRoutes() {
           <Route path="/plus" element={lazyPage(PlusPage)} />
           <Route path="/iniciar-sesion" element={lazyPage(LoginPage)} />
           <Route path="/registrarse" element={lazyPage(RegisterPage)} />
+          <Route path="/recuperar-contrasena" element={lazyPage(PasswordRecoveryPage)} />
+          <Route path="/restablecer-contrasena" element={lazyPage(PasswordRecoveryPage)} />
           <Route path="/terminos-y-condiciones" element={lazyPage(LegalPage)} />
           <Route path="/politica-de-privacidad" element={lazyPage(LegalPage)} />
           <Route path="/terminos-de-pago" element={lazyPage(LegalPage)} />

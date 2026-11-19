@@ -45,6 +45,23 @@
   color: var(--muted);
 }
 
+.math-game-loading,
+.math-game-content-error {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.math-game-loading {
+  padding: 32px 0;
+  color: var(--muted);
+}
+
+.math-game-content-error {
+  width: min(620px, 100%);
+  margin: 0 auto;
+}
+
 .math-game-status {
   display: flex;
   align-items: center;

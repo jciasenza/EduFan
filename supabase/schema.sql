@@ -64,7 +64,8 @@ begin
   if p_game_id not in (
     'songs', 'stories', 'riddles', 'tongue-twisters', 'memory',
     'shapes-colors', 'math-addition', 'number-series',
-    'scrambled-words', 'science', 'world-history', 'english', 'spanish', 'puzzles'
+    'scrambled-words', 'science', 'world-history', 'english', 'spanish', 'puzzles',
+    'art-music-quiz'
   ) then
     raise exception 'Unknown game';
   end if;
