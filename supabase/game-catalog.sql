@@ -101,7 +101,7 @@ values
   ('tongue-twisters', 'tongue-twisters', 'Reto de trabalenguas', 'Tongue twister challenge', '¡Di cada frase sin equivocarte!', 'Say each phrase without making a mistake!', 'TextFields', 'blue', '/juegos/trabalenguas', 4),
   ('memory', 'memory', 'Memotest de animales', 'Animal memory match', 'Encuentra las parejas de animales.', 'Find matching pairs of animals.', 'SportsEsports', 'teal', '/juegos/memoria', 5),
   ('shapes-colors', 'shapes-colors', 'Figuras y colores', 'Shapes and colors', 'Aprende a reconocer formas y colores jugando.', 'Learn to recognize shapes and colors as you play.', 'Palette', 'coral', '/juegos/figuras-colores', 6),
-  ('puzzles', 'resources', 'Rompecabezas de animales', 'Animal jigsaw puzzle', 'Arma la imagen pieza por pieza.', 'Put the picture together piece by piece.', 'Extension', 'purple', '/juegos/rompecabezas', 7),
+  ('puzzles', 'resources', 'Rompecabezas de animales', 'Animal puzzle', 'Arma la imagen pieza por pieza.', 'Put the picture together piece by piece.', 'Extension', 'purple', '/juegos/rompecabezas', 7),
   ('english', 'english', 'Aprende inglés', 'Learn English', 'Practica palabras en inglés de forma divertida.', 'Practice English words in a fun way.', 'Translate', 'coral', '/juegos/ingles', 8),
   ('spanish', 'english', 'Aprende español', 'Learn Spanish', 'Practica palabras en español de forma divertida.', 'Practice Spanish words in a fun way.', 'Translate', 'coral', '/juegos/espanol', 9),
   ('science', 'science', 'Pequeños exploradores', 'Little explorers', 'Descubre curiosidades del mundo que te rodea.', 'Discover fun facts about the world around you.', 'Science', 'yellow', '/juegos/ciencia', 10),

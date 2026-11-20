@@ -217,7 +217,7 @@
     }
   },
   "puzzleGame": {
-    "title": "Meadow puzzle",
+    "title": "Animals puzzle",
     "description": "Move the pieces to complete each picture. Tap or drag them.",
     "level": "Level",
     "puzzle": "Puzzle",
@@ -243,7 +243,9 @@
     "progressSaveError": "Your progress could not be saved. Check your connection and try again.",
     "savingProgress": "Saving progress...",
     "retry": "Try again",
-    "playAgain": "Play again"
+    "playAgain": "Play again",
+    "animalsTitle": "Animal Jigsaw Puzzle",
+    "dinosaursTitle": "Dinosaur Jigsaw"
   },
   "memoryGame": {
     "title": "Animal memory",
@@ -469,7 +471,7 @@
         "description": "Learn to recognize shapes and colors as you play."
       },
       "puzzles": {
-        "title": "Animal jigsaw puzzle",
+        "title": "Animal's puzzle",
         "description": "Put the picture together piece by piece."
       },
       "english": {

@@ -217,7 +217,7 @@
     }
   },
   "puzzleGame": {
-    "title": "Rompecabezas del prado",
+    "title": "Rompecabezas de animales",
     "description": "Mueve las piezas hasta completar cada imagen. Puedes tocarlas o arrastrarlas.",
     "level": "Nivel",
     "puzzle": "Rompecabezas",
@@ -243,7 +243,9 @@
     "progressSaveError": "No se pudo guardar tu progreso. Revisa la conexión e inténtalo otra vez.",
     "savingProgress": "Guardando progreso...",
     "retry": "Reintentar",
-    "playAgain": "Jugar otra vez"
+    "playAgain": "Jugar otra vez",
+    "animalsTitle": "Rompecabezas de animales",
+    "dinosaursTitle": "Rompecabezas de dinosaurios"
   },
   "memoryGame": {
     "title": "Memoria de animales",

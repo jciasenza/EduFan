@@ -294,7 +294,6 @@ export default function VocabularyGame({ targetLanguage }) {
             {!finished ? (
               <>
                 <div className="vocabulary-status">
-                  <Typography>{text.level}: {level}</Typography>
                   <Typography>{text.round} {round + 1} {text.of} {questions.length}</Typography>
                 </div>
                 <LinearProgress

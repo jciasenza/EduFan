@@ -104,6 +104,7 @@
 
 .game-category-card .MuiCardActionArea-root {
   height: 100%;
+  background: var(--card-caption);
 }
 
 .game-card-art {

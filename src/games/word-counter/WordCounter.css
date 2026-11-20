@@ -7,6 +7,26 @@
   padding: 38px 0 48px;
 }
 
+.close-content {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.game-toolbar-exit-leters.MuiIconButton-root {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  color: var(--text);
+  background: var(--page-bg);
+  box-shadow: 0 2px 0 var(--border);
+}
+
+.game-toolbar-exit-leters.MuiIconButton-root:hover {
+  color: #fff;
+  background: #ff6f61;
+  box-shadow: 0 2px 0 #db4d54;
+}
+
 .counter-card {
   position: relative;
   width: min(680px, 100%);

@@ -237,7 +237,6 @@ export default function Header() {
         PaperProps={{ className: "mobile-navigation-drawer" }}
       >
         <div className="mobile-drawer-heading">
-          <strong>{t.games}</strong>
           <IconButton
             onClick={() => setMobileMenuOpen(false)}
             aria-label={t.closeMenu}

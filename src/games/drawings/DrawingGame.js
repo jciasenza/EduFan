@@ -238,8 +238,6 @@ export default function DrawingGame() {
         <Typography component="h1" variant="h3" className="shape-color-title">
           {t.title}
         </Typography>
-        <Typography className="shape-color-description">{t.description}</Typography>
-
         {contentLoading ? (
           <div className="shape-color-loading" role="status">
             <Loading aria-label={t.contentLoading} />
@@ -278,7 +276,6 @@ export default function DrawingGame() {
             {!finished ? (
               <>
                 <div className="shape-color-score">
-                  <span>{t.level}: {level}</span>
                   <span>{t.round}: {roundIndex + 1} / {rounds.length}</span>
                 </div>
                 <Typography className="shape-color-question">{t.question}</Typography>
