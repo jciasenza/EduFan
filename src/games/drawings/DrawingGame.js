@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import { AutoAwesome, CheckCircle } from "@mui/icons-material";
@@ -12,6 +11,7 @@ import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
+import Loading from "../../components/ui/Loading";
 import "./DrawingGame.css";
 
 const availableShapes = ["circle", "square", "triangle", "star"];
@@ -242,7 +242,7 @@ export default function DrawingGame() {
 
         {contentLoading ? (
           <div className="shape-color-loading" role="status">
-            <CircularProgress aria-label={t.contentLoading} />
+            <Loading aria-label={t.contentLoading} />
             <Typography>{t.contentLoading}</Typography>
           </div>
         ) : contentError ? (

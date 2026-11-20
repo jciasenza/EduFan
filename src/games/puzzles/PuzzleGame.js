@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import { AutoAwesome, Extension, RestartAlt } from "@mui/icons-material";
@@ -13,6 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import supabase from "../../lib/supabaseClient";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
+import Loading from "../../components/ui/Loading";
 import "./PuzzleGame.css";
 
 const localPuzzleLevels = {
@@ -234,7 +234,7 @@ export default function PuzzleGame() {
 
         {contentLoading ? (
           <div className="puzzle-loading" role="status">
-            <CircularProgress aria-label={t.contentLoading} />
+            <Loading aria-label={t.contentLoading} />
             <Typography>{t.contentLoading}</Typography>
           </div>
         ) : contentError ? (

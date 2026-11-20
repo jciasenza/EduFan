@@ -3,7 +3,6 @@ import {
   Alert,
   Box,
   Card,
-  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -15,6 +14,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import supabase from "../../lib/supabaseClient";
 import "./ScrambledWords.css";
+import Loading from "../../components/ui/Loading";
 
 const wordSets = {
   es: [
@@ -375,7 +375,7 @@ export default function ScrambledWords() {
 
         {contentLoading ? (
           <div className="scrambled-loading" role="status">
-            <CircularProgress aria-label={t.contentLoading} />
+            <Loading aria-label={t.contentLoading} />
             <Typography>{t.contentLoading}</Typography>
           </div>
         ) : contentError ? (
@@ -527,7 +527,7 @@ export default function ScrambledWords() {
               {t.finalScore}: {score} / {questionOrder.length}
             </Typography>
             {progressError && <Alert severity="error" role="alert">{progressError}</Alert>}
-            {savingProgress && <CircularProgress aria-label={t.savingProgress} />}
+            {savingProgress && <Loading aria-label={t.savingProgress} />}
             <AppButton
               onClick={progressError ? completeLevel : handleRestart}
               disabled={savingProgress}

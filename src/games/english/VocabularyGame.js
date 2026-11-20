@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -13,6 +12,7 @@ import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
+import Loading from "../../components/ui/Loading";
 import "./VocabularyGame.css";
 
 const vocabulary = [
@@ -258,7 +258,7 @@ export default function VocabularyGame({ targetLanguage }) {
 
         {contentLoading ? (
           <div className="vocabulary-loading" role="status">
-            <CircularProgress aria-label={text.contentLoading} />
+            <Loading aria-label={text.contentLoading} />
             <Typography>{text.contentLoading}</Typography>
           </div>
         ) : contentError ? (

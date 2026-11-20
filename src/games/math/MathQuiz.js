@@ -2,7 +2,6 @@ import React from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -11,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
 import GameToolbar from "../../components/games/GameToolbar";
 import { useLanguage } from "../../context/LanguageContext";
+import Loading from "../../components/ui/Loading";
 import "./MathGames.css";
 
 export default function MathQuiz({
@@ -65,7 +65,7 @@ export default function MathQuiz({
 
         {contentLoading ? (
           <div className="math-game-loading" role="status">
-            <CircularProgress aria-label={text.contentLoading} />
+            <Loading aria-label={text.contentLoading} />
             <Typography>{text.contentLoading}</Typography>
           </div>
         ) : contentError ? (

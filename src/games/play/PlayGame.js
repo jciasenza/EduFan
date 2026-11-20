@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import { AutoAwesome, RestartAlt } from "@mui/icons-material";
@@ -12,6 +11,7 @@ import GameToolbar from "../../components/games/GameToolbar";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
+import Loading from "../../components/ui/Loading";
 import "./PlayGame.css";
 
 const animalPairs = {
@@ -251,7 +251,7 @@ export default function PlayGame() {
 
         {contentLoading ? (
           <div className="memory-loading" role="status">
-            <CircularProgress aria-label={t.contentLoading} />
+            <Loading aria-label={t.contentLoading} />
             <Typography>{t.contentLoading}</Typography>
           </div>
         ) : contentError ? (

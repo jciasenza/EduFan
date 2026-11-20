@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -14,6 +13,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
 import "./TongueTwisters.css";
+import Loading from "../../components/ui/Loading";
 
 const repetitionsPerPhrase = 3;
 
@@ -226,7 +226,7 @@ export default function TongueTwisters() {
 
         {contentLoading ? (
           <div className="tongue-twister-loading" role="status">
-            <CircularProgress aria-label={t.contentLoading} />
+            <Loading aria-label={t.contentLoading} />
             <Typography>{t.contentLoading}</Typography>
           </div>
         ) : contentError ? (

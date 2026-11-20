@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Card, CircularProgress, LinearProgress, Typography } from "@mui/material";
+import { Alert, Card, LinearProgress, Typography } from "@mui/material";
 import { AutoAwesome, Lightbulb } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../components/ui/AppButton";
@@ -8,6 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import supabase from "../../lib/supabaseClient";
 import "./RiddlesGame.css";
+import Loading from "../../components/ui/Loading";
 
 const localRiddles = {
   es: [
@@ -390,7 +391,7 @@ export default function RiddlesGame() {
 
         {contentLoading ? (
           <div className="riddles-loading" role="status">
-            <CircularProgress aria-label={text.contentLoading} />
+            <Loading aria-label={text.contentLoading} />
             <Typography>{text.contentLoading}</Typography>
           </div>
         ) : contentError ? (
@@ -481,7 +482,7 @@ export default function RiddlesGame() {
             {progressError && (
               <Alert severity="error" role="alert">{progressError}</Alert>
             )}
-            {savingProgress && <CircularProgress aria-label={text.savingProgress} />}
+            {savingProgress && <Loading aria-label={text.savingProgress} />}
             <AppButton
               onClick={progressError ? completeLevel : handleRestart}
               disabled={savingProgress}

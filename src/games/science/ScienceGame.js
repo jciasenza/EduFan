@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Card,
-  CircularProgress,
   LinearProgress,
   Typography,
 } from "@mui/material";
@@ -14,6 +13,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import supabase from "../../lib/supabaseClient";
 import "./ScienceGame.css";
+import Loading from "../../components/ui/Loading";
 
 const localQuestions = {
   es: [
@@ -298,7 +298,7 @@ export default function ScienceGame() {
 
         {contentLoading ? (
           <div className="science-loading" role="status">
-            <CircularProgress aria-label={text.contentLoading} />
+            <Loading aria-label={text.contentLoading} />
             <Typography>{text.contentLoading}</Typography>
           </div>
         ) : contentError ? (
@@ -391,7 +391,7 @@ export default function ScienceGame() {
                 {progressError && (
                   <Alert severity="error" role="alert">{progressError}</Alert>
                 )}
-                {savingProgress && <CircularProgress aria-label={text.savingProgress} />}
+                {savingProgress && <Loading aria-label={text.savingProgress} />}
                 <AppButton
                   onClick={progressError ? completeLevel : handleRestart}
                   disabled={savingProgress}

@@ -14,6 +14,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { useGameCatalog } from "../../context/GameCatalogContext";
 import AppButton from "../../components/ui/AppButton";
 import getCatalogIcon from "../../components/games/catalogIcons";
+import Loading from "../../components/ui/Loading";
 import "./Home.css";
 
 export default function Home() {
@@ -39,22 +40,6 @@ export default function Home() {
 
   return (
     <main className="kids-home">
-      {catalogLoading && (
-        <Typography role="status">{t.catalogLoading}</Typography>
-      )}
-      {catalogError && (
-        <Alert
-          severity="error"
-          role="alert"
-          action={
-            <Button color="inherit" size="small" onClick={retry}>
-              {t.catalogRetry}
-            </Button>
-          }
-        >
-          {catalogError}
-        </Alert>
-      )}
       {selectedCategoryData && (
         <>
           <section
@@ -161,18 +146,33 @@ export default function Home() {
                 <i />
                 <i />
               </div>
-
               <div className="book">
-                              <img className="home-logo" src={`${process.env.PUBLIC_URL}/edufan-logo.png`} alt="" />
-
-                {/* <span>A</span>
-                <span>Á</span> */}
+                <img
+                  className="home-logo"
+                  src={`${process.env.PUBLIC_URL}/edufan-logo.png`}
+                  alt=""
+                />
               </div>
               <div className="pencil">✏️</div>
               <span className="floating-star star-a">★</span>
               <span className="floating-star star-b">★</span>
             </div>
           </section>
+
+          {catalogLoading && <Loading message={t.catalogLoading} />}
+          {catalogError && (
+            <Alert
+              severity="error"
+              role="alert"
+              action={
+                <Button color="inherit" size="small" onClick={retry}>
+                  {t.catalogRetry}
+                </Button>
+              }
+            >
+              {catalogError}
+            </Alert>
+          )}
 
           <section
             className="game-categories"

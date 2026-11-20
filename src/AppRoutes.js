@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./pages/Home/Home";
+import Loading from "./components/ui/Loading";
 
 const WordCounter = lazy(() => import("./games/word-counter/WordCounter"));
 const ScrambledWords = lazy(() => import("./games/scrambled-words/ScrambledWords"));
@@ -31,7 +31,7 @@ const PasswordRecoveryPage = lazy(() => import("./pages/PasswordRecovery/Passwor
 
 function lazyPage(Component) {
   return (
-    <Suspense fallback={<Box className="route-loading"><CircularProgress /></Box>}>
+    <Suspense fallback={<Box className="route-loading"><Loading /></Box>}>
       <Component />
     </Suspense>
   );
