@@ -77,13 +77,6 @@
     "finishLevel": "Complete level",
     "levelComplete": "Level complete! Moving to the next level:",
     "allLevelsComplete": "You completed all available levels!",
-    "contentLoading": "Loading vocabulary...",
-    "contentLoadError": "Vocabulary could not be loaded. Check your connection and make sure a level is published for this language.",
-    "localContentNotice": "You are playing the demo content included in the app; the cloud content bank is not configured.",
-    "progressLoadError": "Your saved progress could not be loaded. Check your connection and try again.",
-    "progressSaveError": "Your progress could not be saved. Check your connection and try again.",
-    "savingProgress": "Saving progress...",
-    "retry": "Try again",
     "correct": "Great job! You found the word!",
     "tryAgain": "Almost! Try again.",
     "finished": "You did it!",
@@ -96,10 +89,7 @@
     "progressSaveError": "Your progress could not be saved. Check your connection and try again.",
     "savingProgress": "Saving progress...",
     "retry": "Try again",
-    "level": "Level",
-    "finishLevel": "Complete level",
-    "continue": "Continue",
-    "allLevelsComplete": "You completed all available levels!"
+    "continue": "Continue"
   },
   "mathGames": {
     "shared": {
@@ -322,7 +312,6 @@
   },
   "songsGame": {
     "title": "Musical echo",
-    "description": "Listen to an original melody and find its note sequence.",
     "round": "Round",
     "score": "Score",
     "question": "Listen carefully and choose the matching sequence.",

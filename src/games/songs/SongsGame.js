@@ -155,8 +155,6 @@ export default function SongsGame() {
         <Typography component="h1" variant="h3" className="songs-title">
           {t.title}
         </Typography>
-        <Typography className="songs-description">{t.description}</Typography>
-
         {!finished ? (
           <>
             <div className="songs-status">

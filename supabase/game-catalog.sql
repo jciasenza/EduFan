@@ -86,11 +86,9 @@ set title_es = excluded.title_es,
 update public.games
   set category_id = 'art-music',
       updated_at = now()
-  where id = 'songs';
+  where category_id = 'songs';
 
-update public.game_categories
-  set is_published = false,
-      updated_at = now()
+delete from public.game_categories
   where id = 'songs';
 
 insert into public.games

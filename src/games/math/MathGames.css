@@ -126,7 +126,7 @@
   background: #6254e8;
   box-shadow: 0 5px 0 #4b41bd;
   font-family: var(--font-heading);
-  font-size: clamp(26px, 6vw, 36px);
+  font-size: clamp(36px, 8vw, 58px);;
 }
 
 .math-operation-symbol {
@@ -202,7 +202,7 @@
   cursor: pointer;
   font: inherit;
   font-family: var(--font-heading);
-  font-size: 28px;
+  font-size: clamp(36px, 8vw, 58px);
   transition: transform 140ms ease, background-color 140ms ease;
 }
 

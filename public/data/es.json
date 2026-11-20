@@ -77,13 +77,6 @@
     "finishLevel": "Completar nivel",
     "levelComplete": "¡Nivel completado! Pasando al siguiente:",
     "allLevelsComplete": "¡Completaste todos los niveles disponibles!",
-    "contentLoading": "Cargando vocabulario...",
-    "contentLoadError": "No se pudo cargar el vocabulario. Revisa la conexión y que haya un nivel publicado para este idioma.",
-    "localContentNotice": "Estás jugando con el contenido de demostración incluido en la app; el banco en la nube no está configurado.",
-    "progressLoadError": "No se pudo cargar tu progreso guardado. Revisa la conexión e inténtalo otra vez.",
-    "progressSaveError": "No se pudo guardar tu progreso. Revisa la conexión e inténtalo otra vez.",
-    "savingProgress": "Guardando progreso...",
-    "retry": "Reintentar",
     "correct": "¡Muy bien! ¡Encontraste la palabra!",
     "tryAgain": "¡Casi! Prueba otra vez.",
     "finished": "¡Terminaste!",
@@ -96,10 +89,7 @@
     "progressSaveError": "No se pudo guardar tu progreso. Revisa la conexión e inténtalo otra vez.",
     "savingProgress": "Guardando progreso...",
     "retry": "Reintentar",
-    "level": "Nivel",
-    "finishLevel": "Completar nivel",
-    "continue": "Continuar",
-    "allLevelsComplete": "¡Completaste todos los niveles disponibles!"
+    "continue": "Continuar"
   },
   "mathGames": {
     "shared": {
@@ -322,7 +312,6 @@
   },
   "songsGame": {
     "title": "Eco musical",
-    "description": "Escucha una melodía original y encuentra la secuencia de notas.",
     "round": "Ronda",
     "score": "Puntos",
     "question": "Escucha con atención y elige la secuencia que coincide.",

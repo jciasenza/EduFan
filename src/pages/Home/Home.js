@@ -1,5 +1,12 @@
 import React from "react";
-import { Alert, Box, Button, Card, CardActionArea, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  Typography,
+} from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { ArrowForward, Star } from "@mui/icons-material";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -12,7 +19,13 @@ import "./Home.css";
 export default function Home() {
   const { translations } = useLanguage();
   const t = translations.home || {};
-  const { categories, games, loading: catalogLoading, error: catalogError, retry } = useGameCatalog();
+  const {
+    categories,
+    games,
+    loading: catalogLoading,
+    error: catalogError,
+    retry,
+  } = useGameCatalog();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user } = useAuth();
@@ -20,9 +33,6 @@ export default function Home() {
   const selectedCategoryData = categories.find(
     ({ id }) => id === selectedCategory,
   );
-  const SelectedCategoryIcon = selectedCategoryData
-    ? getCatalogIcon(selectedCategoryData.icon)
-    : null;
   const selectedGames = selectedCategoryData
     ? games.filter((game) => game.category_id === selectedCategoryData.id)
     : [];
@@ -36,7 +46,11 @@ export default function Home() {
         <Alert
           severity="error"
           role="alert"
-          action={<Button color="inherit" size="small" onClick={retry}>{t.catalogRetry}</Button>}
+          action={
+            <Button color="inherit" size="small" onClick={retry}>
+              {t.catalogRetry}
+            </Button>
+          }
         >
           {catalogError}
         </Alert>
@@ -55,13 +69,24 @@ export default function Home() {
               ✦
             </span>
             <div className="category-scene-character" aria-hidden="true">
-              <SelectedCategoryIcon />
+              {categoryImageFiles[selectedCategoryData.id] &&
+                process.env.REACT_APP_SUPABASE_URL && (
+                  <img
+                    className="game-category-image"
+                    src={`${process.env.REACT_APP_SUPABASE_URL.replace(/\/$/, "")}/storage/v1/object/public/edufan-game-assets/categories/${categoryImageFiles[selectedCategoryData.id]}`}
+                    alt=""
+                    loading="lazy"
+                    onError={(event) => event.currentTarget.remove()}
+                  />
+                )}
             </div>
             <div className="category-scene-title-wrap">
               <Typography component="h1" id="selected-category-title">
                 {selectedCategoryData.title}
               </Typography>
-              <span>{selectedCategoryData.description || t.categoryHeroSubtitle}</span>
+              <span>
+                {selectedCategoryData.description || t.categoryHeroSubtitle}
+              </span>
             </div>
           </section>
 
@@ -136,9 +161,12 @@ export default function Home() {
                 <i />
                 <i />
               </div>
+
               <div className="book">
-                <span>A</span>
-                <span>Á</span>
+                              <img className="home-logo" src={`${process.env.PUBLIC_URL}/edufan-logo.png`} alt="" />
+
+                {/* <span>A</span>
+                <span>Á</span> */}
               </div>
               <div className="pencil">✏️</div>
               <span className="floating-star star-a">★</span>
@@ -176,10 +204,22 @@ export default function Home() {
                         <span className="game-card-icon">
                           <GameIcon />
                         </span>
+                        {categoryImageFiles[category.id] &&
+                          process.env.REACT_APP_SUPABASE_URL && (
+                            <img
+                              className="game-category-image"
+                              src={`${process.env.REACT_APP_SUPABASE_URL.replace(/\/$/, "")}/storage/v1/object/public/edufan-game-assets/categories/${categoryImageFiles[category.id]}`}
+                              alt=""
+                              loading="lazy"
+                              onError={(event) => event.currentTarget.remove()}
+                            />
+                          )}
                       </Box>
                       <Box className="game-card-caption">
                         <Typography component="h3">{category.title}</Typography>
-                        <Typography component="p">{category.description}</Typography>
+                        <Typography component="p">
+                          {category.description}
+                        </Typography>
                       </Box>
                     </CardActionArea>
                   </Card>
@@ -192,6 +232,21 @@ export default function Home() {
     </main>
   );
 }
+
+const categoryImageFiles = {
+  "art-music": "musica_arte.svg",
+  stories: "cuentos.svg",
+  riddles: "adivinanzas.svg",
+  "tongue-twisters": "trabalenguas.svg",
+  memory: "memoria.svg",
+  "shapes-colors": "formas_colores.svg",
+  resources: "rompecabezas.svg",
+  english: "idiomas.svg",
+  science: "ciencia.svg",
+  "world-history": "historia.svg",
+  math: "matematicas.svg",
+  words: "palabras.svg",
+};
 
 function GameCardContent({ Icon, game, comingSoonLabel }) {
   return (
