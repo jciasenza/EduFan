@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Alert, Card, Typography } from "@mui/material";
 import { AutoAwesome, Extension, RestartAlt } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -10,6 +10,8 @@ import supabase from "../../lib/supabaseClient";
 import { loadGameLevels, saveGameLevel } from "../gameLevelUtils";
 import Loading from "../../components/ui/Loading";
 import JigsawBoard from "./JigsawBoard";
+import PictureCompletionBoard from "./PictureCompletionBoard";
+import ShadowPuzzleBoard from "./ShadowPuzzleBoard";
 import "./JigsawBoard.css";
 import "./PuzzleGame.css";
 
@@ -40,7 +42,12 @@ const localPuzzleLevels = {
 function isValidPuzzleSet(items, mode) {
   const validPieceCounts = [4, 6, 9, 12, 16];
 
-  const expectedFolder = mode === "jigsaw" ? "dinosaurs" : "animals";
+  const expectedFolder = {
+    jigsaw: "dinosaurs",
+    picture: "vehicles",
+    sliding: "animals",
+    shadow: "shadow",
+  }[mode];
 
   return (
     Array.isArray(items) &&
@@ -114,6 +121,7 @@ export default function PuzzleGame() {
   const [levelNotice, setLevelNotice] = useState("");
   const [progressError, setProgressError] = useState("");
   const [savingProgress, setSavingProgress] = useState(false);
+  const [boardAttempt, setBoardAttempt] = useState(0);
 
   const location = useLocation();
 
@@ -211,6 +219,15 @@ export default function PuzzleGame() {
 
   const currentPuzzle = puzzles[puzzleIndex];
 
+  const shadowItems = useMemo(
+    () =>
+      puzzles.map((puzzle) => ({
+        ...puzzle,
+        image: getImageUrl(puzzle.image),
+      })),
+    [puzzles],
+  );
+
   const currentGrid = currentPuzzle
     ? getPuzzleGrid(currentPuzzle)
     : { rows: 2, columns: 2 };
@@ -261,6 +278,7 @@ export default function PuzzleGame() {
     setAllLevelsComplete(false);
     setLevelNotice("");
     setProgressError("");
+    setBoardAttempt((attempt) => attempt + 1);
   };
 
   const completeLevel = async () => {
@@ -276,6 +294,7 @@ export default function PuzzleGame() {
       const nextLevel = completed + 1;
       if (availableLevels[nextLevel]) {
         const nextPuzzles = availableLevels[nextLevel];
+        setLevelNotice("");
         setPuzzles(nextPuzzles);
         setLevel(nextLevel);
         setPuzzleIndex(0);
@@ -287,7 +306,7 @@ export default function PuzzleGame() {
         setPuzzleSolved(false);
         setImageError(false);
         setAllLevelsComplete(false);
-        setLevelNotice(`${t.levelComplete} ${t.level} ${nextLevel}`);
+        // setLevelNotice(`${t.levelComplete} ${t.level} ${nextLevel}`);
       } else {
         setAllLevelsComplete(true);
       }
@@ -300,10 +319,17 @@ export default function PuzzleGame() {
   };
 
   const continueLevel = () => {
+    // En Siluetas, las cinco figuras pertenecen al mismo nivel.
+    if (mode === "shadow") {
+      completeLevel();
+      return;
+    }
+
     if (puzzleIndex < puzzles.length - 1) {
       const nextIndex = puzzleIndex + 1;
       setPuzzleIndex(nextIndex);
       const nextGrid = getPuzzleGrid(puzzles[nextIndex]);
+
       setBoard(createShuffledBoard(nextGrid.rows, nextGrid.columns));
       setMoves(0);
       setDraggedTile(null);
@@ -311,6 +337,7 @@ export default function PuzzleGame() {
       setImageError(false);
       return;
     }
+
     completeLevel();
   };
 
@@ -329,9 +356,14 @@ export default function PuzzleGame() {
           <Extension />
         </div>
         <Typography component="h1" variant="h3" className="puzzle-title">
-           {mode === "jigsaw" ? t.dinosaursTitle : t.animalsTitle}
+          {mode === "shadow"
+            ? t.shadowTitle
+            : mode === "picture"
+              ? t.pictureTitle
+              : mode === "jigsaw"
+                ? t.dinosaursTitle
+                : t.animalsTitle}
         </Typography>
-        <Typography className="puzzle-description">{t.description}</Typography>
 
         {contentLoading ? (
           <div className="puzzle-loading" role="status">
@@ -385,11 +417,19 @@ export default function PuzzleGame() {
 
             <div className="puzzle-meta">
               <Typography>
-                {t.puzzle} {puzzleIndex + 1} {t.of} {puzzles.length}
-                {" · "}
-                {t.pieces}: <strong>{totalPieces}</strong>
-                {" · "}
-                {t.moves}: <strong>{moves}</strong>
+                {mode === "shadow" ? (
+                  <>
+                    {t.figures || "Figures"}: <strong>{puzzles.length}</strong>
+                  </>
+                ) : (
+                  <>
+                    {t.puzzle} {puzzleIndex + 1} {t.of} {puzzles.length}
+                    {" · "}
+                    {t.pieces}: <strong>{totalPieces}</strong>
+                    {" · "}
+                    {t.moves}: <strong>{moves}</strong>
+                  </>
+                )}
               </Typography>
               <AppButton
                 variant="secondary"
@@ -401,7 +441,35 @@ export default function PuzzleGame() {
               </AppButton>
             </div>
 
-            {mode === "jigsaw" ? (
+            {mode === "shadow" ? (
+              <ShadowPuzzleBoard
+                key={`${gameId}-${level}-${boardAttempt}`}
+                items={shadowItems}
+                onCorrect={() => {
+                  setScore((currentScore) => currentScore + 1);
+                  awardPoint("puzzles");
+                }}
+                onComplete={() => {
+                  setPuzzleSolved(true);
+                }}
+              />
+            ) : mode === "picture" ? (
+              <PictureCompletionBoard
+                key={`${currentPuzzle.image}-${boardAttempt}`}
+  image={getImageUrl(currentPuzzle.image)}
+  alt={currentPuzzle.alt}
+  rows={currentGrid.rows}
+  columns={currentGrid.columns}
+  language={activeLanguage}
+  onStart={() => setLevelNotice("")}
+  onImageError={() => setImageError(true)}
+  onComplete={() => {
+    setPuzzleSolved(true);
+    setScore((currentScore) => currentScore + 1);
+    awardPoint("puzzles");
+  }}
+              />
+            ) : mode === "jigsaw" ? (
               <JigsawBoard
                 image={getImageUrl(currentPuzzle.image)}
                 alt={currentPuzzle.alt}
@@ -494,7 +562,7 @@ export default function PuzzleGame() {
                   >
                     {savingProgress
                       ? t.savingProgress
-                      : puzzleIndex < puzzles.length - 1
+                      : mode !== "shadow" && puzzleIndex < puzzles.length - 1
                         ? t.nextPuzzle
                         : t.finishLevel}
                   </AppButton>
@@ -534,34 +602,76 @@ function createSolvedBoard(rows, columns) {
   return Array.from({ length: rows * columns }, (_, index) => index);
 }
 
+function getManhattanDistance(board, rows, columns) {
+  return board.reduce((total, tile, index) => {
+    if (tile === rows * columns - 1) return total;
+
+    const currentRow = Math.floor(index / columns);
+    const currentColumn = index % columns;
+
+    const targetRow = Math.floor(tile / columns);
+    const targetColumn = tile % columns;
+
+    return (
+      total +
+      Math.abs(currentRow - targetRow) +
+      Math.abs(currentColumn - targetColumn)
+    );
+  }, 0);
+}
+
 function createShuffledBoard(rows, columns) {
-  const emptyTile = rows * columns - 1;
-  const shuffleSteps = rows * columns * 12;
+  const totalPieces = rows * columns;
+  const emptyTile = totalPieces - 1;
 
-  let board = createSolvedBoard(rows, columns);
-  let emptyIndex = emptyTile;
-  let previousEmptyIndex = -1;
+  let lastBoard = createSolvedBoard(rows, columns);
 
-  for (let step = 0; step < shuffleSteps; step++) {
-    const neighbors = getNeighbors(emptyIndex, rows, columns);
-    const possibleMoves = [];
+  for (let attempt = 0; attempt < 30; attempt++) {
+    let board = createSolvedBoard(rows, columns);
+    let emptyIndex = emptyTile;
+    let previousEmptyIndex = -1;
 
-    for (let i = 0; i < neighbors.length; i++) {
-      if (neighbors[i] !== previousEmptyIndex) {
-        possibleMoves.push(neighbors[i]);
+    for (let step = 0; step < totalPieces * 30; step++) {
+      const neighbors = getNeighbors(emptyIndex, rows, columns);
+      const possibleMoves = [];
+
+      for (let i = 0; i < neighbors.length; i++) {
+        if (neighbors[i] !== previousEmptyIndex) {
+          possibleMoves.push(neighbors[i]);
+        }
       }
+
+      const tileIndex =
+        possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+
+      board = swapTiles(board, emptyIndex, tileIndex);
+
+      previousEmptyIndex = emptyIndex;
+      emptyIndex = tileIndex;
     }
 
-    const tileIndex =
-      possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    lastBoard = board;
 
-    board = swapTiles(board, emptyIndex, tileIndex);
+    const isSolved = board.every((tile, index) => tile === index);
 
-    previousEmptyIndex = emptyIndex;
-    emptyIndex = tileIndex;
+    const distance = getManhattanDistance(board, rows, columns);
+
+    if (!isSolved && distance >= 2) {
+      return board;
+    }
   }
 
-  return board;
+  // Último recurso: garantizar que no comience resuelto.
+  if (lastBoard.every((tile, index) => tile === index)) {
+    const neighbors = getNeighbors(emptyTile, rows, columns);
+
+    const randomNeighbor =
+      neighbors[Math.floor(Math.random() * neighbors.length)];
+
+    lastBoard = swapTiles(lastBoard, emptyTile, randomNeighbor);
+  }
+
+  return lastBoard;
 }
 
 function getTileStyle(tile, rows, columns) {

@@ -245,8 +245,32 @@
     "retry": "Reintentar",
     "playAgain": "Jugar otra vez",
     "animalsTitle": "Rompecabezas de animales",
-    "dinosaursTitle": "Rompecabezas de dinosaurios"
+    "dinosaursTitle": "Rompecabezas de dinosaurios",
+    "shadowTitle": "Siluetas del espacio",
+    "pictureTitle": "Completa la imagen"
   },
+  "pictureCompletion": {
+    "instruction": "¿Qué pieza completa la imagen?",
+    "missingPiece": "Pieza faltante",
+    "option": "Opción",
+    "tryAgain": "¡Probá otra pieza!",
+    "completed": "¡Muy bien! Completaste la imagen."
+  },
+  "jigsawBoard": {
+    "instruction": "Arrastrá las piezas",
+    "piece": "pieza",
+    "progress": "{placed} de {total} piezas colocadas"
+  },
+  "shadowPuzzle": {
+  "instruction": "¿Qué imagen corresponde a esta silueta?",
+  "silhouetteAlt": "Silueta",
+  "tryAgain": "¡Probá con otra imagen!",
+  "correct": "¡Muy bien! Encontraste la imagen correcta.",
+  "next": "Siguiente",
+  "finish": "Terminar nivel",
+  "progress": "Figura {current} de {total}",
+  "noContent": "No hay suficientes imágenes para este nivel."
+},
   "memoryGame": {
     "title": "Memoria de animales",
     "description": "¡Encuentra las parejas! Da vuelta dos cartas por turno.",

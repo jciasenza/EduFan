@@ -245,8 +245,32 @@
     "retry": "Try again",
     "playAgain": "Play again",
     "animalsTitle": "Animal Jigsaw Puzzle",
-    "dinosaursTitle": "Dinosaur Jigsaw"
+    "dinosaursTitle": "Dinosaur Jigsaw",
+    "shadowTitle": "Space Silhouettes",
+    "pictureTitle": "Complete the Picture"
   },
+  "pictureCompletion": {
+    "instruction": "Which piece completes the picture?",
+    "missingPiece": "Missing piece",
+    "option": "Option",
+    "tryAgain": "Try another piece!",
+    "completed": "Great job! You completed the picture."
+  },
+  "jigsawBoard": {
+    "instruction": "Drag the pieces",
+    "piece": "piece",
+    "progress": "{placed} of {total} pieces placed"
+  },
+  "shadowPuzzle": {
+  "instruction": "Which image matches this silhouette?",
+  "silhouetteAlt": "Silhouette",
+  "tryAgain": "Try another image!",
+  "correct": "Great job! You found the matching image.",
+  "next": "Next",
+  "finish": "Finish level",
+  "progress": "Figure {current} of {total}",
+  "noContent": "There are not enough images for this level."
+},
   "memoryGame": {
     "title": "Animal memory",
     "description": "Find the matching pairs! Flip two cards on each turn.",

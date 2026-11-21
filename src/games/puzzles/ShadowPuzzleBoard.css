@@ -1,0 +1,151 @@
+.shadow-game {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.shadow-progress {
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.shadow-instruction {
+  margin: 0 0 24px;
+  color: #263248;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+}
+
+.shadow-target {
+  width: min(260px, 65vw);
+  height: 220px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  background-color: #d8eaff;
+  border: 3px dashed #cbd5e1;
+  border-radius: 24px;
+}
+
+.shadow-silhouette {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  filter: brightness(0) drop-shadow(0 5px 3px rgb(0 0 0 / 15%));
+  user-select: none;
+  pointer-events: none;
+  filter: brightness(0);
+}
+
+.shadow-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+.shadow-option {
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 3px solid #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.shadow-option:hover:not(:disabled) {
+  transform: translateY(-4px);
+  border-color: #8b5cf6;
+}
+
+.shadow-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.shadow-option.is-correct {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.shadow-option.is-wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.shadow-option:disabled {
+  cursor: default;
+}
+
+.shadow-feedback {
+  margin: 20px 0 0;
+  font-weight: 700;
+}
+
+.shadow-feedback.is-wrong {
+  color: #dc2626;
+}
+
+.shadow-success {
+  margin-top: 22px;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.shadow-success p {
+  margin: 0;
+}
+
+.shadow-next-button {
+  margin-top: 10px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.shadow-next-button:hover {
+  background: #6d28d9;
+}
+
+.shadow-message {
+  padding: 24px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .shadow-game {
+    padding: 12px;
+  }
+
+  .shadow-target {
+    height: 190px;
+    margin-bottom: 22px;
+  }
+
+  .shadow-options {
+    gap: 10px;
+  }
+
+  .shadow-option {
+    padding: 8px;
+    border-radius: 14px;
+  }
+}

@@ -1,5 +1,5 @@
-
 import React, { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 function edgeSign(row, column, direction) {
   const value =
@@ -99,14 +99,7 @@ function shuffle(items) {
   return result;
 }
 
-function PuzzlePiece({
-  image,
-  alt,
-  index,
-  rows,
-  columns,
-  id,
-}) {
+function PuzzlePiece({ image, alt, index, rows, columns, id }) {
   const row = Math.floor(index / columns);
   const column = index % columns;
   const path = getPiecePath(row, column, rows, columns);
@@ -136,24 +129,16 @@ function PuzzlePiece({
         clipPath={`url(#${clipId})`}
       />
 
-      <path
-        d={path}
-        className="jigsaw-piece-outline"
-        pointerEvents="none"
-      />
+      <path d={path} className="jigsaw-piece-outline" pointerEvents="none" />
     </svg>
   );
 }
 
-export default function JigsawBoard({
-  image,
-  alt,
-  rows,
-  columns,
-  onComplete,
-}) {
+export default function JigsawBoard({ image, alt, rows, columns, onComplete }) {
   const id = useStableId();
   const totalPieces = rows * columns;
+  const { translations } = useLanguage();
+  const t = translations.jigsawBoard || {};
 
   const [pieceOrder, setPieceOrder] = useState(() =>
     shuffle(Array.from({ length: totalPieces }, (_, i) => i)),
@@ -165,9 +150,7 @@ export default function JigsawBoard({
   const dragRef = useRef(null);
 
   useEffect(() => {
-    setPieceOrder(
-      shuffle(Array.from({ length: totalPieces }, (_, i) => i)),
-    );
+    setPieceOrder(shuffle(Array.from({ length: totalPieces }, (_, i) => i)));
     setPlaced(new Set());
     setDrag(null);
     dragRef.current = null;
@@ -224,15 +207,10 @@ export default function JigsawBoard({
 
       if (!current || current.pointerId !== event.pointerId) return;
 
-      const element = document.elementFromPoint(
-        event.clientX,
-        event.clientY,
-      );
+      const element = document.elementFromPoint(event.clientX, event.clientY);
 
       const slot = element?.closest("[data-jigsaw-slot]");
-      const targetIndex = slot
-        ? Number(slot.dataset.jigsawSlot)
-        : -1;
+      const targetIndex = slot ? Number(slot.dataset.jigsawSlot) : -1;
 
       if (
         targetIndex === current.pieceIndex &&
@@ -277,10 +255,6 @@ export default function JigsawBoard({
   return (
     <section className="jigsaw-game">
       <div className="jigsaw-board-area">
-        <h2 className="jigsaw-section-title">
-          Completá el dinosaurio
-        </h2>
-
         <div
           className="jigsaw-board"
           style={{
@@ -328,9 +302,7 @@ export default function JigsawBoard({
       </div>
 
       <div className="jigsaw-tray-area">
-        <h2 className="jigsaw-section-title">
-          Arrastrá las piezas
-        </h2>
+        <h2 className="jigsaw-section-title">{t.instruction}</h2>
 
         <div className="jigsaw-tray">
           {pieceOrder
@@ -341,13 +313,11 @@ export default function JigsawBoard({
                   drag?.pieceIndex === index ? "is-dragging" : ""
                 }`}
                 key={index}
-                onPointerDown={(event) =>
-                  handlePointerDown(event, index)
-                }
+                onPointerDown={(event) => handlePointerDown(event, index)}
               >
                 <PuzzlePiece
                   image={image}
-                  alt={`${alt}, pieza ${index + 1}`}
+                  alt={`${alt}, ${t.piece} ${index + 1}`}
                   index={index}
                   rows={rows}
                   columns={columns}
@@ -381,7 +351,9 @@ export default function JigsawBoard({
       )}
 
       <p className="jigsaw-progress" aria-live="polite">
-        {placed.size} de {totalPieces} piezas colocadas
+        {t.progress
+          .replace("{placed}", placed.size)
+          .replace("{total}", totalPieces)}
       </p>
     </section>
   );

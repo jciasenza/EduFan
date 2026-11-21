@@ -10,14 +10,6 @@
   width: 100%;
 }
 
-.jigsaw-section-title {
-  margin: 0 0 18px;
-  color: #6254e8;
-  font-family: var(--font-heading);
-  font-size: 20px;
-  text-align: center;
-}
-
 .jigsaw-board {
   width: min(460px, 100%);
   margin: 0 auto;
